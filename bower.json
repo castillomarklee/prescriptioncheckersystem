@@ -1,0 +1,33 @@
+{
+  "name": "bower",
+  "authors": [
+    "castillolee@yahoo.com"
+  ],
+  "description": "This is a bower file",
+  "main": "index.html",
+  "license": "MIT",
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.6.4",
+    "bootstrap": "3.3.7",
+    "jquery": "2.1.4",
+    "font-awesome": "4.7.0",
+    "chart.js": "2.7.1",
+    "angular-route": "1.6.4",
+    "angular-datepicker": "2.0.3",
+    "angular-ui-router": "1.0.11",
+    "angular-bootstrap": "2.5.0",
+    "angular-sessionstorage": "1.1.5",
+    "progressbar.js": "^1.0.1",
+    "fakeLoader": "fakeloader#^1.1.0",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
+  }
+}
