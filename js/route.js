@@ -82,6 +82,18 @@ var application = angular.module('App', ['ui.router', 'ui.bootstrap']);
 			$scope.loginformmessage = "";
 			$scope.loginformmessagehide = true;
 
+			$http({
+			method: 'GET',
+			url: './services/userChecksessionservice.php'
+			}).then(function(response) {
+				console.log(response);
+				if(response.data.usersession == true) {
+					$location.path("/userhome");
+				} else {
+					$location.path("/homepage");
+				}
+			});
+
 			$scope.registeruser = function() {
 					$http({
 						method: 'POST',
@@ -126,6 +138,7 @@ var application = angular.module('App', ['ui.router', 'ui.bootstrap']);
 						$scope.loginformmessage = "Invalid username or password";
 						$scope.loginformmessagehide = false;
 					} else {
+						location.reload();
 						$location.path('/userhome');
 					}
 				});
@@ -912,6 +925,20 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 				$(".loading").fadeOut("slow");
 		});
 
+		$scope.pageSize = 9;
+		$scope.currentPage = 1;
+
+		$scope.pageSizev = 9;
+		$scope.currentPagev = 1;
+
+		$scope.pageSizer = 10;
+		$scope.currentPager = 1;
+
+		$scope.resizescreen = $(".well").outerHeight() + 2500 + "px";
+		var screensize = $(".well").outerHeight() + 300 + "px";
+
+		$scope.doctorsched = false;
+
 		$http({
 			method: 'GET',
 			url: './services/userChecksessionservice.php'
@@ -924,21 +951,124 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 			}
 		});
 
+		$scope.profileform = [];
+		$scope.doctorschedform = [];
+		$scope.id = "";
+		$scope.desc = "";
+		$scope.time = "";
+		$scope.schedmessage = "";
+		$scope.id = "";
+
+		$http({
+			method: 'GET',
+			url: './services/userprofile.php'
+		}).then(function(response) {
+			$scope.profileform = response.data[0];
+		});
+
 		$scope.logout = function() {
 			$http({
 				method: 'GET',
 				url: './services/logoutservice.php'
 			}).then(function(response) {
-				$location.path('/admin');
+				$location.path('/');
 			});
 		}
-			
+
+		$scope.doctorsform = [];
+
+		$scope.getdoctors = function() {
+			$http({
+				method: 'GET',
+				url: './services/getdoctors.php'
+			}).then(function(response) {
+				$scope.doctorsform = response.data;
+			});
+		}
+
+		$scope.modalschedclose = function() {
+			$scope.doctorschedform = [];
+			$scope.desc = "";
+			$scope.time = "";
+			$scope.schedmessage = "";
+			$scope.id = "";
+		}
+
+		$scope.selectschedmodalclose = function() {
+			$scope.id = "";
+			$scope.desc = "";
+			$scope.time = "";
+			$scope.schedmessage = "";
+			$scope.id = "";
+		}
+
+
+
+		$scope.selectedschedmodal = function(id, desc, time) {
+			$scope.id = id;
+			$scope.desc = desc;
+			$scope.time = time;
+		}
+
+		$scope.doctorschedulemodal = function(id) {
+			$http({
+				method: 'POST',
+				url: './services/getdoctorschedservice.php',
+				data: {'id': id}
+			}).then(function(response) {
+				$scope.doctorschedform = response.data;
+			});
+		}
+
+		$scope.saveselectedsched = function() {
+			$http({
+				method: 'POST',
+				url: './services/saveselectedschedservice.php',
+				data: {'id': $scope.id, 'desc': $scope.desc, 'time': $scope.time}
+			}).then(function(response) {
+				if(response.data.appointmentexist == true) {
+					$scope.schedmessage = "The schedule already exists";
+				} else {
+					location.reload();
+				}
+			});
+		}
+
+		$scope.appointmentform = [];
+
+		$scope.appointmenttable = function() {
+			$http({
+				method: 'GET',
+				url: './services/appointmenttableservice.php'
+			}).then(function(response) {
+				$scope.appointmentform = response.data;
+			});
+		}
+
+		$scope.vitalsignform = [];
+
+		$scope.vitalsigntable = function() {
+			$http({
+				method: 'GET',
+				url: './services/vitalsigntableserviceuser.php'
+			}).then(function(response) {
+				$scope.vitalsignform = response.data;
+				console.log(response);
+			});
+		}
+
+		$scope.vitalsigntable();
+		$scope.appointmenttable();
+		$scope.getdoctors();
+
 	}]);
+		
 
 application.controller('doctorlogincontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
 		});
+
 
 		$scope.loginform = {};
 		$scope.loginformmessage = "";
@@ -960,8 +1090,19 @@ application.controller('doctorlogincontroller', ['$scope', '$http', '$location',
 	}]);	
 
 application.controller('doctorhomecontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
+		$scope.pageSize = 10;
+		$scope.currentPage = 1;
+
+		$scope.pageSizevitalsign = 10;
+		$scope.currentPagevitalsign = 1;
+
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
+		});
+
+
+		$('.datepicker').datepicker({
+		    startDate: '-3d'
 		});
 
 		$http({
@@ -984,7 +1125,7 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 		});
 		}
 
-		$scope.resizescreen = $(".well").outerHeight() + 180 + "px";
+		$scope.resizescreen = $(".well").outerHeight() + 900 + "px";
 		var screensize = $(".well").outerHeight() + 300 + "px";
 
 		$scope.collapsebuttonadd = function() {
@@ -998,8 +1139,81 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 
 		}
 
-		$scope.preferedscheduleadd = function() {
+		$scope.schedform = {};
+		$scope.schedformmessage = "";
+		$scope.schedtableform = [];
+		$scope.schedupdateform = [];
+		$scope.vitalsignform = [];
 
+		$scope.savesched = function() {
+			$http({
+			method: 'POST',
+			url: './services/saveschedservice.php',
+			data: $scope.schedform
+			}).then(function(response) {
+				if(response.data.schedexist == true) {
+					$scope.schedformmessage = "Schedule already exist.";
+				} else {
+					$scope.schedtableform.push({
+						'schedid': response.data.id,
+						'scheddesc': response.data.desc,
+						'schedtime': response.data.sched,
+						'date_created': response.data.datecreate,
+						'docid': response.data.docid
+					});
+				}
+			});
 		}
+
+		
+
+		$scope.schedtable = function() {
+			$http({
+			method: 'POST',
+			url: './services/schedtableservice.php'
+			}).then(function(response) {
+				$scope.schedtableform = response.data;
+			});
+		}
+
+		$scope.scheddelete = function(id) {
+			$http({
+			method: 'POST',
+			url: './services/scheddeleteservice.php',
+			data: {'id': id}
+			}).then(function(response) {
+				location.reload();
+			});
+		}
+
+		$scope.schededitmodal = function(id, desc, sched) {
+			$scope.schedupdateform.push({
+				'id': id,
+				'desc': desc,
+				'sched': sched
+			});
+		}
+
+		$scope.schedupdate = function() {
+			$http({
+			method: 'POST',
+			url: './services/schedupdateservice.php',
+			data: $scope.schedupdateform[0]
+			}).then(function(response) {
+				location.reload();
+			});
+		}
+
+		$scope.vitalsigntable = function() {
+			$http({
+			method: 'GET',
+			url: './services/doctorvitalsigntableservice.php'
+			}).then(function(response) {
+				$scope.vitalsignform = response.data;
+			});
+		}
+
+		$scope.schedtable();
+		$scope.vitalsigntable(); 
 
 	}]);		

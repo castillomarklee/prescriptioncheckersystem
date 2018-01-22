@@ -288,6 +288,12 @@
     font-size: 30px;
 }
 
+.closesched {
+    color: white; 
+    opacity: 1;
+    font-size: 30px;
+}
+
 .vitalsign {
   border-color: white;
   border-style: solid;
@@ -297,6 +303,14 @@
 }
 
 .doctorschedule {
+  border-color: white;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 20px;
+  overflow: hidden;
+}
+
+.userdiagnosis {
   border-color: white;
   border-style: solid;
   border-radius: 5px;

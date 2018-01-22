@@ -48,7 +48,7 @@
 					<br>
 					<ul class="nav nav-tabs">
 					  <li class="active"><a data-toggle="tab" style="cursor: pointer;" data-target="#schedule">Schedule</a></li>
-					  <li><a data-toggle="tab" style="cursor: pointer;" data-target="#appointment">Appointment</a></li>
+					  <li><a data-toggle="tab" style="cursor: pointer;" data-target="#diagnosis">Diagnosis</a></li>
 					  <li><a data-toggle="tab" style="cursor: pointer;" data-target="#vitalsign">Vital Sign</a></li>
 					</ul>
 
@@ -87,7 +87,7 @@
 						  <br>
 						  <br>
 						  <div class="doctorschedule">
-						  	<h2 style="font-family: Monotype Corsiva;">Doctor Schedule Schedule</h2><br>
+						  	<h2 style="font-family: Monotype Corsiva;">Doctor Schedule</h2><br>
 						  	<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#addprefsched" type="button">Add</button>
 
 							<!-- Modal -->
@@ -97,59 +97,109 @@
 							    <!-- Modal content-->
 							    <div class="modal-content">
 							      <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal">&times;</button>
+							        <button type="button" class="close" data-dismiss="modal" ng-click="modalclose()">&times;</button>
 							        <h4 class="modal-title">Schedule</h4>
 							      </div>
 							      <div class="modal-body">
-							        <textarea class="form-control" placeholder="Description"></textarea>
-
-							      </div>
+							      	<form method="POST" ng-submit="savesched()">
+							      		 <textarea class="form-control" ng-model="schedform.desc" placeholder="Description"></textarea><br>
+							        <input class="datepicker form-control" ng-model="schedform.sched" data-date-format="mm/dd/yyyy" placeholder="Date"><br>
+							        <button class="btn btn-primary btn-md center-block" type="submit">Save</button><br>
+							        <strong class="alert alert-success">{{schedformmessage}}</strong>
+							      	</form>
+							       
 							      <div class="modal-footer">
-							        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="modalclose()">Close</button>
 							      </div>
 							    </div>
 
 							  </div>
 							</div>
-
+						  </div>
+						  <br><br>
+						  <div class="col-xs-4">
+						  	<h2 style="font-family: Monotype Corsiva; margin-right: 5px;">Filter</h2><input type="text" class="form-control center-block" ng-model="filterdate"><ul uib-pagination total-items="schedtableform.length" ng-model="currentPage" ng-change="pageSize"></ul>
+						  </div>
+						  		
 						  		<table class="table">
 								    <thead>
 								      <tr>
-								        <th>Firstname</th>
-								        <th>Lastname</th>
-								        <th>Email</th>
+								        <th>ID</th>
+								        <th>Description</th>
+								        <th>Schedule</th>
 								      </tr>
 								    </thead>
 								    <tbody>
-								      <tr>
-								        <td>John</td>
-								        <td>Doe</td>
-								        <td>john@example.com</td>
-								      </tr>
-								      <tr>
-								        <td>Mary</td>
-								        <td>Moe</td>
-								        <td>mary@example.com</td>
-								      </tr>
-								      <tr>
-								        <td>July</td>
-								        <td>Dooley</td>
-								        <td>july@example.com</td>
+								      <tr ng-repeat="i in schedtableform | startFrom:(currentPage - 1) * pageSize | limitTo:pageSize | filter: filterdate">
+								        <td>{{i.schedid}}</td>
+								        <td>{{i.scheddesc}}</td>
+								        <td>{{i.schedtime}}</td>
+								        <td><button class="btn btn-primary btn-md" type="button" data-toggle="modal" data-target="#updatesched" ng-click="schededitmodal(i.schedid, i.scheddesc, i.schedtime)">Edit</button></td>
+								        <td><button class="btn btn-danger btn-md" type="button" ng-click="scheddelete(i.schedid)">Delete</button></td>
 								      </tr>
 								    </tbody>
 								  </table>
-						  </div>
+								  <!-- Modal -->
+									<div id="updatesched" class="modal fade" role="dialog">
+									  <div class="modal-dialog modal-md">
+
+									    <!-- Modal content-->
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal" ng-click="modalclose()">&times;</button>
+									        <h4 class="modal-title">Update</h4>
+									      </div>
+									      <div class="modal-body">
+									      	<h2 style="font-family: Monotype Corsiva; margin-right: 5px; color: black;">{{schedupdateform[0].id}}</h2>
+									        <textarea class="form-control" ng-model="schedupdateform[0].desc"></textarea>
+									        <br>
+							        		<input class="datepicker form-control" ng-model="schedupdateform[0].sched" data-date-format="mm/dd/yyyy" placeholder="Date"><br>
+							        		<button class="btn btn-primary btn-md center-block" ng-click="schedupdate()">Save</button>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="modalclose()">Close</button>
+									      </div>
+									    </div>
+
+									  </div>
+									</div>
 					  </div>
-					  <div id="appointment" class="tab-pane fade">
+					  
+					</div>
+					<div id="diagnosis" class="tab-pane fade">
 					    <h3>Menu 1</h3>
 					    <p>Some content in menu 1.</p>
-					  </div>
-					  <div id="vitalsign" class="tab-pane fade">
-					    <h3>Menu 2</h3>
-					    <p>Some content in menu 2.</p>
-					  </div>
 					</div>
-
+					 <div id="vitalsign" class="tab-pane fade">
+					 	<h2 style="font-family: Monotype Corsiva;">Vital Sign</h2>
+					 	<br>
+					 	<div class="col-xs-4">
+						  	<h2 style="font-family: Monotype Corsiva; margin-right: 5px;">Filter</h2><input type="text" class="form-control center-block" ng-model="filtervitalsign"><ul uib-pagination total-items="vitalsignform.length" ng-model="currentPagevitalsign" ng-change="pageSizevitalsign"></ul>
+						  </div>
+					      <table class="table">
+						    <thead>
+						      <tr>
+						        <th>Patient</th>
+						        <th>BP</th>
+						        <th>Cardiac Rate</th>
+						        <th>Pulse Rate</th>
+						        <th>Temperature</th>
+						        <th>Respiratory Rate</th>
+						        <th>Oxygen Saturation</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr ng-repeat="p in vitalsignform | startFrom:(currentPagevitalsign - 1) * pageSizevitalsign | limitTo:pageSizevitalsign | filter: filtervitalsign">
+						        <td>{{p.firstname}} {{p.middlename}} {{p.lastname}}</td>
+						        <td>{{p.bp}}</td>
+						        <td>{{p.cardiacrate}}</td>
+						        <td>{{p.pulserate}}</td>
+						        <td>{{p.temperature}}</td>
+						        <td>{{p.respiratoryrate}}</td>
+						        <td>{{p.oxygensaturation}}</td>
+						      </tr>
+						  </table>
+					</div>
 					<br>
 					<br>
 
@@ -157,7 +207,8 @@
 
 				</div>			
 			</div>
-
+</div>
+</div>
 
 <!-- copyright -->
 <div class="copyright-agile">
@@ -277,7 +328,7 @@ fit: true
 				containerHoverID: 'toTopHover', // fading element hover id
 				scrollSpeed: 1200,
 				easingType: 'linear' 
-				};
+				};	
 			*/
 								
 			$().UItoTop({ easingType: 'easeOutQuart' });
