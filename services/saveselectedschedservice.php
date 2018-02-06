@@ -7,8 +7,9 @@
 	$schedid = $user->id;
 	$desc = $user->desc;
 	$time = $user->time;
-
-	$date = array();
+	$doctorid = $user->doctorid;
+	$queryqwe = false; 
+	$data = array();
 
 	session_start();
 
@@ -19,18 +20,16 @@
 
 	$date = date("m-d-Y");
 
-	$checkappointment = mysqli_query($conn, "SELECT * FROM appointment WHERE appointmentdate='$time'");
+	$status = "RESERVED";
 
-	$appointmentexist = false;
+		$query = mysqli_query($conn, "INSERT INTO appointment VALUES('$appointmentid', '$time', '$appointmenttype', '$appointmentdesc', '$status', '$id', '$schedid', '$date')");
 
-	if(mysqli_num_rows($checkappointment)) {
-		$appointmentexist = true;
-	} else {
-		$query = mysqli_query($conn, "INSERT INTO appointment VALUES('$appointmentid', '$time', '$appointmenttype', '$appointmentdesc', '$id', '$schedid', '$date')");
-	}
+		$setappointmenttaken = mysqli_query($conn, "UPDATE docsched SET availability='TAKEN' WHERE schedid='$schedid'");
 
-	$date["appointmentexist"] = $appointmentexist;
-
+		if($query) {
+			$queryqwe = true;
+		}
+		$data["asd"] = $queryqwe;
 	echo json_encode($data);
 
  ?>

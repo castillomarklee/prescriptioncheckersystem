@@ -22,7 +22,7 @@
 						<ul class="nav navbar-nav navbar-right cl-effect-15">
 							<!-- Hidden li included to remove active class from about link when scrolled up past about section -->
 							<li class="hidden"><a class="page-scroll" href="#page-top"></a>	</li>
-							<li><a class="page-scroll scroll" href="#doctors" style="cursor: pointer;">Doctor</a></li>
+							<li><a class="page-scroll scroll" data-toggle="modal" data-target="#medModal" style="cursor: pointer;">Medicine</a></li>
 							<li><a class="page-scroll scroll" data-toggle="modal" data-target="#registerModal" style="cursor: pointer;">Settings</a></li>
 							<li><a ng-click="logout()" style="cursor: pointer;">Log out</a></li>
 						</ul>
@@ -35,6 +35,46 @@
 		<div class="loading">Loading&#8230;</div>
 
 		<div id="workerwallpaper" style="height: {{resizescreen}}">
+			<!-- Modal -->
+			<div id="medModal" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        <h4 class="modal-title">Medicine</h4>
+			      </div>
+			      <br>
+			      <input type="text" class="form-control" ng-model="filterMed" placeholder="Search" style="width: 200px; margin-left: 10px;"><br><br>
+			      <ul uib-pagination total-items="medtableform.length" ng-model="currentPagemed" style="margin-left: 200px;" ng-change="pageSizemed"></ul><br><br>
+			      <div class="modal-body">
+			          <table class="table">
+					    <thead>
+					      <tr>
+					      	<th>Category</th>
+					        <th>Medicine</th>
+					        <th>Dosage</th>
+					        <th>Usage</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					      <tr ng-repeat="q in medtableform | startFrom:(currentPagemed - 1) * pageSizemed | limitTo:pageSizemed | filter: filterMed">
+					        <td>{{q.category}}</td>
+					        <td>{{q.medname}}</td>
+					        <td>{{q.dosage}}</td>
+					        <td>{{q.meduse}}</td>
+					      </tr>
+					    </tbody>
+					  </table>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			      </div>
+			    </div>
+
+			  </div>
+			</div>
 			<br>
 			<br>
 			<br>
@@ -48,7 +88,13 @@
 					<div>
 											<div class="col-md-6" style="float: left;">
 						<div class="userdiagnosis">
-							<h2 style="font-family: Monotype Corsiva;">Appointment</h2>
+							<h2 style="font-family: Monotype Corsiva;">Appointment</h2><br>
+							<div class="row">
+								<div class="col-xs-5">
+									<h3 style="font-family: Monotype Corsiva;">Filter:</31> <input type="text" class="form-control" ng-model="appointmentFilter">
+								</div>
+							</div>
+							
 							<ul uib-pagination total-items="appointmentform.length" ng-model="currentPager" ng-change="pageSizer"></ul>
 							  <table class="table">
 							    <thead>
@@ -59,13 +105,32 @@
 							      </tr>
 							    </thead>
 							    <tbody>
-							      <tr ng-repeat="r in appointmentform | startFrom:(currentPager - 1) * pageSizer | limitTo:pageSizer">
+							      <tr ng-repeat="r in appointmentform | startFrom:(currentPager - 1) * pageSizer | limitTo:pageSizer | filter: appointmentFilter">
 							        <td>{{r.appointmentdate}}</td>
 							        <td>{{r.firstname}} {{r.middlename}} {{r.lastname}}</td>
 							        <td>{{r.doctortype}}</td>
+							        <td><button class="btn btn-danger btn-xs" data-toggle="modal" ng-click="cancelModal(r.appointmentid)" data-target="#cancelModal">Cancel</button></td>
 							      </tr>
 							    </tbody>
 							  </table>
+							  <div id="cancelModal" class="modal fade" role="dialog">
+								  <div class="modal-dialog modal-sm">
+
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								      
+								      <div class="modal-body" style="overflow: hidden;">
+								        <h2 style="font-family: Monotype Corsiva; color: black;" class="pull-left">Cancel Appointment?</h2><br><br>
+
+									        	<button class="btn btn-success btn-md col-xs-4" ng-click="userappointmentcancel()" style="margin-right: 5px;" type="button">Yes</button>
+									        	<button class="btn btn-danger btn-md col-xs-4" type="button" ng-click="cancelac()" data-dismiss="modal">No</button>
+
+							      </div>
+								      
+								    </div>
+
+								  </div>
+								</div>
 						</div>
 					</div>
 					<div class="col-md-6" style="float: left;">
@@ -82,6 +147,8 @@
 					<div class="col-md-12" style="margin-top: 20px; float: left;">
 						<div class="userdiagnosis">
 							<h2 style="font-family: Monotype Corsiva;">Vital Sign</h2><br>
+							<input type="text" class="form-control" ng-model="vitalsignsearch" placeholder="Search" style="width: 400px;"><br>
+							<ul uib-pagination total-items="vitalsignform.length" ng-model="currentPagervitalsign" ng-change="pageSizervitalsign"></ul><br>
 							  <table class="table">
 							    <thead>
 							      <tr>
@@ -95,8 +162,8 @@
 							      </tr>
 							    </thead>
 							    <tbody>
-							      <tr ng-repeat=" t in vitalsignform">
-							        <td>{{t.BP}</td>
+							      <tr ng-repeat=" t in vitalsignform | startFrom:(currentPagervitalsign - 1) * pageSizervitalsign | limitTo:pageSizervitalsign | filter: vitalsignsearch">
+							        <td>{{t.bp}}</td>
 							        <td>{{t.cardiacrate}}</td>
 							        <td>{{t.pulserate}}</td>
 							        <td>{{t.respiratoryrate}}</td>
@@ -111,32 +178,54 @@
 					<div class="col-md-12" style="margin-top: 20px; float: left;">
 						<div class="userdiagnosis">
 							<h2 style="font-family: Monotype Corsiva;">Diagnosis</h2><br>
+							<input type="text" class="form-control" ng-model="diagnosesearch" placeholder="Search" style="width: 400px;">
+							<ul uib-pagination total-items="diagnosetableuserform.length" ng-model="currentPagerdiagnose" ng-change="pageSizerdiagnose"></ul><br>
 							  <table class="table">
 							    <thead>
 							      <tr>
-							        <th>Firstname</th>
-							        <th>Lastname</th>
-							        <th>Email</th>
+							        <th>ID</th>
+							        <th>Complaint</th>
+							        <th>Date</th>
+							        <th>Doctor</th>
 							      </tr>
 							    </thead>
 							    <tbody>
-							      <tr>
-							        <td>John</td>
-							        <td>Doe</td>
-							        <td>john@example.com</td>
-							      </tr>
-							      <tr>
-							        <td>Mary</td>
-							        <td>Moe</td>
-							        <td>mary@example.com</td>
-							      </tr>
-							      <tr>
-							        <td>July</td>
-							        <td>Dooley</td>
-							        <td>july@example.com</td>
+							      <tr ng-repeat="q in diagnosetableuserform | startFrom:(currentPagerdiagnose - 1) * pageSizerdiagnose | limitTo:pageSizerdiagnose | filter: diagnosesearch">
+							        <td>{{q.diagnoseid}}</td>
+							        <td>{{q.patientcomplain}}</td>
+							        <td>{{q.appointmentdate}}</td>
+							        <td>{{q.firstname}} {{q.middlename}} {{q.lastname}}</td>
+							        <td><button class="btn btn-warning btn-md" type="button" data-toggle="modal" data-target="#diagnoseviewmodal" ng-click="diagnosemodal(q.appointmentdate, q.diagnosedescription, q.patientcomplain, q.diagnosis, q.recommendation, q.drugallergies, q.firstname, q.middlename, q.lastname)">View</button></td>
 							      </tr>
 							    </tbody>
-							  </table>   
+							  </table>
+							  <!-- Modal -->
+								<div id="diagnoseviewmodal" class="modal fade" role="dialog">
+								  <div class="modal-dialog">
+
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" data-dismiss="modal">&times;</button>
+								        <h4 class="modal-title">Diagnose</h4>
+								      </div>
+								      <div class="modal-body" style="color: black;">
+								        	<h1 style="text-align: center; font-family: Monotype Corsiva;">Tomboc-Salayog Hospital</h1><br><br>
+								        	<h2 style="font-family: Monotype Corsiva;">Appointment Date: <strong>{{diagnosemodalform[0].date}}</strong></h2><br>
+								        	<h2 style="font-family: Monotype Corsiva;">Description: <strong>{{diagnosemodalform[0].description}}</strong></h2><br>
+								        	<h2 style="font-family: Monotype Corsiva;">Complaint: <strong>{{diagnosemodalform[0].complaint}}</strong></h2><br>
+								        	<h2 style="font-family: Monotype Corsiva;">Diagnosis: <strong>{{diagnosemodalform[0].diagnosis}}</strong></h2><br>
+								        	<h2 style="font-family: Monotype Corsiva;">Recommendation: <strong>{{diagnosemodalform[0].recommendation}}</strong></h2><br>
+								        	<h2 style="font-family: Monotype Corsiva;">Drug Allergies: <strong>{{diagnosemodalform[0].drugallergies}}</strong></h2><br>
+								        	<h2 style="font-family: Monotype Corsiva;">Doctor: <strong>{{diagnosemodalform[0].doctorfirstname}} {{diagnosemodalform[0].doctormiddlename}} {{diagnosemodalform[0].doctorlastname}}</strong></h2><br>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" ng-click="diagnoseclosemodal()" data-dismiss="modal">Close</button>
+								      </div>
+								    </div>
+
+								  </div>
+								</div>   
 						</div>
 					</div>
 					</div>
@@ -191,13 +280,15 @@
 								      <tr>
 								        <th>Description</th>
 								        <th>Date</th>
+								        <th>Time</th>
 								      </tr>
 								    </thead>
 								    <tbody>
 								      <tr ng-repeat="v in doctorschedform | startFrom:(currentPagev - 1) * pageSizev | limitTo:pageSizev">
 								        <td>{{v.scheddesc}}</td>
 								        <td>{{v.schedtime}}</td>
-								        <td><button class="btn btn-primary btn-md" data-toggle="modal" ng-click="selectedschedmodal(v.schedid, v.scheddesc, v.schedtime)" data-target="#modalconfirmsched">Select</button></td>
+								        <td>{{v.fromtime}} - {{v.totime}}</td>
+								        <td><button class="btn btn-primary btn-md" data-toggle="modal" ng-click="selectedschedmodal(v.schedid, v.scheddesc, v.schedtime, v.fromtime, v.totime, v.doctorid)" data-target="#modalconfirmsched">Select</button></td>
 								      </tr>
 								    </tbody>
 								  </table>

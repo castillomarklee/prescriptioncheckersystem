@@ -55,34 +55,70 @@
 					<div class="tab-content">
 					  <div id="schedule" class="tab-pane fade in active">
 					  	<br>
-					    <h3 style="font-family: Monotype Corsiva;">List of patient schedule</h3>
+					    <h3 style="font-family: Monotype Corsiva;">List of patient schedule</h3><br><br>
+					    <div class="col-xs-5">
+					    	<input type="text" class="form-control" ng-model="filterDiagnosis" placeholder="Search ID, escription, status, date, time, or patient"><br>
+					    	<ul uib-pagination total-items="patientschedarray.length" ng-model="currentPagediagnosis" ng-change="pageSizediagnosis"></ul>
+					    </div>
+					    
 					    <br>
 					      <table class="table">
 						    <thead>
 						      <tr>
-						        <th>Firstname</th>
-						        <th>Lastname</th>
-						        <th>Email</th>
+						        <th>ID</th>
+						        <th>Description</th>
+						        <th>Status</th>
+						        <th>Date</th>
+						        <th>Time</th>
+						        <th>Patient</th>
 						      </tr>
 						    </thead>
 						    <tbody>
-						      <tr>
-						        <td>John</td>
-						        <td>Doe</td>
-						        <td>john@example.com</td>
-						      </tr>
-						      <tr>
-						        <td>Mary</td>
-						        <td>Moe</td>
-						        <td>mary@example.com</td>
-						      </tr>
-						      <tr>
-						        <td>July</td>
-						        <td>Dooley</td>
-						        <td>july@example.com</td>
+						      <tr ng-repeat="p in patientschedarray | startFrom:(currentPagediagnosis - 1) * pageSizediagnosis | limitTo:pageSizediagnosis | filter: filterDiagnosis">
+						        <td>{{p.appointmentid}}</td>
+						        <td>{{p.appointmentdescription}}</td>
+						        <td>{{p.status}}</td>
+						        <td>{{p.schedtime}}</td>``
+						        <td>{{p.fromtime}} - {{p.totime}}</td>
+						        <td>{{p.firstname}} {{p.middlename}} {{p.lastname}}</td>
+						        <td><button class="btn btn-warning btn-md" ng-click="diagnosemodal(p.appointmentid, p.userid)" data-toggle="modal" data-target="#diagnoseModal">Diagnosis</button></td>
 						      </tr>
 						    </tbody>
 						  </table>
+
+						  <!-- Modal -->
+							<div id="diagnoseModal" class="modal fade" role="dialog">
+							  <div class="modal-dialog modal-lg">
+
+							    <!-- Modal content-->
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h4 class="modal-title">Diagnose</h4>
+							      </div>
+							      <div class="modal-body" style="overflow: hidden;">
+							      	<h2 class="alert alert-success"><strong>Reminders: </strong>Always check the patients drug allergies</h2>
+							      	<button class="btn btn-md btn-primary center-block" ng-click="collapseallergy()" data-toggle="collapse" data-target="#allergycheck">Check Drug Allergies</button><br><br>
+							      	<div class="collapse" id="allergycheck" style="color: black">
+							      		<input type="text" class="form-control" ng-model="allergycheck" placeholder="Filter"><br><br>
+							      		  <div ng-repeat="q in allergymodalform | filter: allergycheck">
+							      		  	<h3><strong>{{q.dname}}</strong></h3>
+							      		  	<h3 class="aler alert-success">{{alertalergy}}</h3>
+							      		  </div>
+							      	</div><br><br>
+							        	<textarea class="form-control" ng-model="diagnoseform.description" placeholder="Description"></textarea><br>
+							        	<textarea class="form-control" ng-model="diagnoseform.complaint" placeholder="Complaint"></textarea><br>
+							        	<textarea class="form-control" ng-model="diagnoseform.diagnosis" placeholder="Diagnosis"></textarea><br>
+							        	<textarea class="form-control" ng-model="diagnoseform.recommendation" placeholder="Recommendation"></textarea><br>
+							        	<textarea class="form-control" ng-model="diagnoseform.allergies" placeholder="Drug Allergies"></textarea><br>
+							        	<button class="btn btn-primary btn-md center-block" ng-click="saveDiagnosemodal()" style="width: 120px;">Save</button>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" ng-click="closediagnosemodal()" data-dismiss="modal">Close</button>
+							      </div>
+							    </div>
+
+							  </div>
+							</div>
 
 						  <br>
 						  <br>
@@ -103,7 +139,34 @@
 							      <div class="modal-body">
 							      	<form method="POST" ng-submit="savesched()">
 							      		 <textarea class="form-control" ng-model="schedform.desc" placeholder="Description"></textarea><br>
-							        <input class="datepicker form-control" ng-model="schedform.sched" data-date-format="mm/dd/yyyy" placeholder="Date"><br>
+							      		
+							      		 	<!-- <p class="input-group">
+									          <input type="text" class="form-control" uib-datepicker-popup="MM-dd-yyyy" ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+									          <span class="input-group-btn">
+									            <button type="button" class="btn btn-default"  ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+									          </span>
+									        </p>
+									        <h1>{{dt}}</h1> -->
+							      	
+							      		 
+							        <input class="datepicker form-control" datepicker-popup="MM-dd-yyyy" ng-model="schedform.sched" data-date-format="mm/dd/yyyy" placeholder="Date"><br>
+							         
+							         <div class="row">
+							         	<div class="col-xs-4">
+							         		<h2 style="font-family: Monotype Corsiva; color: black;">From:</h2>
+							         		<div class="input-group bootstrap-timepicker timepicker">
+										        <input id="timepicker1" ng-model="schedform.ftime" class="form-control input-small" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+										    </div>
+							         	</div>
+							         	<div class="col-xs-4">
+							         		<h2 style="font-family: Monotype Corsiva; color: black;">To:</h2>
+										    <div class="input-group bootstrap-timepicker timepicker">
+										        <input id="timepicker2" ng-model="schedform.ttime" class="form-control input-small" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+										    </div>
+							         	</div>  
+							         </div><br>
+							          
+
 							        <button class="btn btn-primary btn-md center-block" type="submit">Save</button><br>
 							        <strong class="alert alert-success">{{schedformmessage}}</strong>
 							      	</form>
@@ -127,6 +190,8 @@
 								        <th>ID</th>
 								        <th>Description</th>
 								        <th>Schedule</th>
+								        <th>Availability</th>
+								        <th>Time</th>
 								      </tr>
 								    </thead>
 								    <tbody>
@@ -134,7 +199,9 @@
 								        <td>{{i.schedid}}</td>
 								        <td>{{i.scheddesc}}</td>
 								        <td>{{i.schedtime}}</td>
-								        <td><button class="btn btn-primary btn-md" type="button" data-toggle="modal" data-target="#updatesched" ng-click="schededitmodal(i.schedid, i.scheddesc, i.schedtime)">Edit</button></td>
+								        <td>{{i.availability}}</td>
+								        <td>{{i.fromtime}} - {{i.totime}}</td>
+								        <td><button class="btn btn-primary btn-md" type="button" data-toggle="modal" data-target="#updatesched" ng-click="schededitmodal(i.schedid, i.scheddesc, i.schedtime, i.fromtime, i.totime)">Edit</button></td>
 								        <td><button class="btn btn-danger btn-md" type="button" ng-click="scheddelete(i.schedid)">Delete</button></td>
 								      </tr>
 								    </tbody>
@@ -146,18 +213,35 @@
 									    <!-- Modal content-->
 									    <div class="modal-content">
 									      <div class="modal-header">
-									        <button type="button" class="close" data-dismiss="modal" ng-click="modalclose()">&times;</button>
+									        <button type="button" class="close" data-dismiss="modal" ng-click="closeupdatemodalsched()">&times;</button>
 									        <h4 class="modal-title">Update</h4>
 									      </div>
 									      <div class="modal-body">
 									      	<h2 style="font-family: Monotype Corsiva; margin-right: 5px; color: black;">{{schedupdateform[0].id}}</h2>
 									        <textarea class="form-control" ng-model="schedupdateform[0].desc"></textarea>
 									        <br>
+
 							        		<input class="datepicker form-control" ng-model="schedupdateform[0].sched" data-date-format="mm/dd/yyyy" placeholder="Date"><br>
+
+							        		<div class="row">
+									         	<div class="col-xs-4">
+									         		<h2 style="font-family: Monotype Corsiva; color: black;">From:</h2>
+									         		<div class="input-group bootstrap-timepicker timepicker">
+												        <input id="timepicker3" ng-model="schedupdateform[0].fromtimeedit" class="form-control input-small" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+												    </div>
+									         	</div>
+									         	<div class="col-xs-4">
+									         		<h2 style="font-family: Monotype Corsiva; color: black;">To:</h2>
+												    <div class="input-group bootstrap-timepicker timepicker">
+												        <input id="timepicker4" ng-model="schedupdateform[0].totimeedit" class="form-control input-small" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+												    </div>
+									         	</div>  
+									         </div><br>
+
 							        		<button class="btn btn-primary btn-md center-block" ng-click="schedupdate()">Save</button>
 									      </div>
 									      <div class="modal-footer">
-									        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="modalclose()">Close</button>
+									        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeupdatemodalsched()">Close</button>
 									      </div>
 									    </div>
 
@@ -167,8 +251,56 @@
 					  
 					</div>
 					<div id="diagnosis" class="tab-pane fade">
-					    <h3>Menu 1</h3>
-					    <p>Some content in menu 1.</p>
+						<br>
+						<input type="text" class="form-control" placeholder="Filter" ng-model="diagnosistable" style="width: 500px;"><br>
+						<ul uib-pagination total-items="diagnosetableform.length" ng-model="currentPagediagnosistable" ng-change="pageSizediagnosistable"></ul>
+					    <table class="table">
+						    <thead>
+						      <tr>
+						        <th>ID</th>
+						        <th>Description</th>
+						        <th>Diagnosis</th>
+						        <th>Recommendation</th>
+						        <th>Drug Allergies</th>
+						        <th>Schedule</th>
+						        <th>Patient</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr ng-repeat="d in diagnosetableform | startFrom:(currentPagediagnosistable - 1) * pageSizediagnosistable | limitTo:pageSizediagnosistable | filter: diagnosistable">
+						        <td>{{d.diagnoseid}}</td>
+						        <td>{{d.diagnosedescription}}</td>
+						        <td>{{d.diagnosis}}</td>
+						        <td>{{d.recommendation}}</td>
+						        <td>{{d.drugallergies}}</td>
+						        <td>{{d.appointmentdate}}</td>
+						        <td>{{d.firstname}} {{d.middlename}} {{d.lastname}}</td>
+						        <td><button type="button" class="btn btn-md btn-danger" ng-click="diagnosetabledelete(d.diagnoseid)">Delete</button></td>
+						        <td><button class="btn btn-md btn-info" type="button" data-toggle="modal" data-target="#diagnoseeditmodal" ng-click="diagnoseedit(d.diagnoseid, d.diagnosedescription, d.patientcomplain, d.diagnosis, d.recommendation, d.drugallergies)">Edit</button></td>
+						      </tr>
+						    </tbody>
+						  </table>
+						  <!-- Modal -->
+							<div id="diagnoseeditmodal" class="modal fade" role="dialog">
+							  <div class="modal-dialog">
+
+							    <!-- Modal content-->
+							    <div class="modal-content">
+							      <div class="modal-body">
+							        <textarea class="form-control" ng-model="diagnoseeditform.description" placeholder="Description"></textarea><br>
+							        <textarea class="form-control" ng-model="diagnoseeditform.complaint" placeholder="Complaint"></textarea><br>
+							        <textarea class="form-control" ng-model="diagnoseeditform.diagnosis" placeholder="Diagnosis"></textarea><br>
+							        <textarea class="form-control" ng-model="diagnoseeditform.recommendation" placeholder="Recommnendation"></textarea><br>
+							        <textarea class="form-control" ng-model="diagnoseeditform.drugallergies" placeholder="Drug Allergies"></textarea><br>
+							        <button type="button" class="btn btn-primary btn-md center-block" ng-click="diagnoseeditsave()" style="width: 120px;">Save</button>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" ng-click="diagnoseeditclose()" data-dismiss="modal">Close</button>
+							      </div>
+							    </div>
+
+							  </div>
+							</div>
 					</div>
 					 <div id="vitalsign" class="tab-pane fade">
 					 	<h2 style="font-family: Monotype Corsiva;">Vital Sign</h2>

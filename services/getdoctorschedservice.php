@@ -8,7 +8,7 @@
 
 	$id = $user->id;
 
-	$query = mysqli_query($conn, "SELECT * FROM docsched WHERE doctorid='$id'");
+	$query = mysqli_query($conn, "SELECT * FROM docsched WHERE availability='AVAILABLE' AND doctorid='$id'");
 
 	while ($querylist = mysqli_fetch_assoc($query)) {
 		$data[] = $querylist;

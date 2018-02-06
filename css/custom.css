@@ -330,4 +330,10 @@
     color: black;
   }
 
+.medicine {
+  border-color: white;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 20px;
+  
 

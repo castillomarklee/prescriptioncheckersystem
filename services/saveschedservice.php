@@ -6,6 +6,8 @@
 
 	$desc = $doctor->desc;
 	$sched = $doctor->sched;
+	$ftime = $doctor->ftime;
+	$ttime = $doctor->ttime;
 
 	$data = array();
 
@@ -20,8 +22,9 @@
 		session_start();
 		$docid = $_SESSION['doctor'];
 		$datecreate = date("m-d-Y");
+		$availability = "AVAILABLE";
 		
-		$query = mysqli_query($conn, "INSERT INTO docsched VALUES('$id', '$desc', '$sched', '$datecreate', '$docid')"); 
+		$query = mysqli_query($conn, "INSERT INTO docsched VALUES('$id', '$desc', '$sched', '$datecreate', '$availability', '$ftime', '$ttime', '$docid')"); 
 	}
 
 	$data["schedexist"] = $schedexist;
@@ -30,6 +33,9 @@
 	$data["sched"] = $sched;
 	$data["datecreate"] = $datecreate;
 	$data["docid"] = $docid;
+	$data["availability"] = $availability;
+	$data["ftime"] = $ftime;
+	$data["ttime"] = $ttime;
 
 	echo json_encode($data);	
 

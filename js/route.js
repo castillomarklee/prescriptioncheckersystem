@@ -40,8 +40,8 @@ var application = angular.module('App', ['ui.router', 'ui.bootstrap']);
 	            templateUrl: './views/adminuserpage.html',
 	            controller: 'adminusercontroller'
 	        })
-	        .state('hospworkeruser', {
-	            url: '/hospworkeruser',
+	        .state('worker', {
+	            url: '/worker',
 	            templateUrl: './views/worker.html',
 	            controller: 'workercontroller'
 	        })
@@ -64,6 +64,11 @@ var application = angular.module('App', ['ui.router', 'ui.bootstrap']);
 	            url: '/doctorhomepage',
 	            templateUrl: './views/doctorhomepage.html',
 	            controller: 'doctorhomecontroller'
+	        })
+	        .state('print', {
+	            url: '/print',
+	            templateUrl: './views/prinreport.html',
+	            controller: 'printcontroller'
 	        });
 
     }
@@ -82,17 +87,17 @@ var application = angular.module('App', ['ui.router', 'ui.bootstrap']);
 			$scope.loginformmessage = "";
 			$scope.loginformmessagehide = true;
 
-			$http({
-			method: 'GET',
-			url: './services/userChecksessionservice.php'
-			}).then(function(response) {
-				console.log(response);
-				if(response.data.usersession == true) {
-					$location.path("/userhome");
-				} else {
-					$location.path("/homepage");
-				}
-			});
+			// $http({
+			// method: 'GET',
+			// url: './services/userChecksessionservice.php'
+			// }).then(function(response) {
+			// 	console.log(response);
+			// 	if(response.data.usersession == true) {
+			// 		$location.path("/userhome");
+			// 	} else {
+			// 		$location.path("/homepage");
+			// 	}
+			// });
 
 			$scope.registeruser = function() {
 					$http({
@@ -123,6 +128,7 @@ var application = angular.module('App', ['ui.router', 'ui.bootstrap']);
 
 			}
 
+
 			$scope.closemodallogin = function() {
 				$scope.loginform = {};
 				$scope.loginformmessagehide = true;
@@ -135,10 +141,14 @@ var application = angular.module('App', ['ui.router', 'ui.bootstrap']);
 					data: $scope.loginform
 				}).then(function(response) {
 					if(response.data.querysuccess == true) {
+						$( function() {
+						    $( "#login" ).dialog();
+						  } );
 						$scope.loginformmessage = "Invalid username or password";
 						$scope.loginformmessagehide = false;
+						$scope.loginform = {};
+						$scope.loginformmessagehide = true;
 					} else {
-						location.reload();
 						$location.path('/userhome');
 					}
 				});
@@ -205,8 +215,7 @@ application.controller('adminhomecontroller', ['$scope', '$http', '$location', f
 	}]);
 		
 application.controller('admindoctorservicecontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
-	$scope.pageSize = 10;
-	$scope.currentPage = 1;
+	
 
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
@@ -222,7 +231,8 @@ application.controller('admindoctorservicecontroller', ['$scope', '$http', '$loc
 				$location.path("/admin");
 			}
 		});
-
+		$scope.pageSize = 10;
+		$scope.currentPage = 1;
 		$scope.logout = function() {
 			$http({
 				method: 'GET',
@@ -616,7 +626,7 @@ application.controller('workercontroller', ['$scope', '$http', '$location', func
 		// }).then(function(response) {
 		// 	console.log(response);
 		// 	if(response.data.adminsession == true) {
-		// 		$location.path("/hospworkeruser");
+		// 		$location.path("/worker");
 		// 	} else {
 		// 		$location.path("/admin");
 		// 	}
@@ -651,6 +661,15 @@ application.controller('workerhomecontroller', ['$scope', '$http', '$location', 
 		$scope.pageSizeupdate = 10;
 		$scope.currentPageupdate = 1;
 
+		$scope.pageSizemed = 10;
+		$scope.currentPagemed = 1;
+
+		$scope.pageSizedrugallergy = 10;
+		$scope.currentPagedrugallergy = 1;
+
+		$scope.pageSizedrugallergymodal = 10;
+		$scope.currentPagedrugallergymodal = 1;
+
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
 		});
@@ -679,7 +698,7 @@ application.controller('workerhomecontroller', ['$scope', '$http', '$location', 
 			if(response.data.workersession == true) {
 				$location.path("/hospworkerhome");
 			} else {
-				$location.path("/hospworkeruser");
+				$location.path("/worker");
 			}
 		});
 
@@ -688,11 +707,11 @@ application.controller('workerhomecontroller', ['$scope', '$http', '$location', 
 			method: 'GET',
 			url: './services/hospworkerlogoutservice.php'
 			}).then(function(response) {
-				$location.path("/hospworkeruser");
+				$location.path("/worker");
 			});
 		}
 
-		$scope.resizescreen = $(".well").outerHeight() + 1400 + "px";
+		$scope.resizescreen = $(".well").outerHeight() + 2300 + "px";
 		var screensize = $(".well").outerHeight() + 900 + "px";
 
 		$scope.vitalsignsave = function() {
@@ -746,34 +765,7 @@ application.controller('workerhomecontroller', ['$scope', '$http', '$location', 
 				url: './services/vitalsignsaveservice.php',
 				data: $scope.vitalsignform 
 				}).then(function(response) {
-					console.log(response);
-					$scope.tableform.push({
-						'vitalsignid': response.data.vitalsignid,
-						'bp': $scope.vitalsignform.bloodpressure,
-						'cardiacrate': $scope.vitalsignform.cardiacrate,
-						'pulserate': $scope.vitalsignform.pulserate,
-						'temperature': $scope.vitalsignform.temperature,
-						'respiratoryrate': $scope.vitalsignform.respiratoryrate,
-						'oxygensaturation': $scope.vitalsignform.oxygen,
-						'date_created': response.data.vitalsigndate,
-						'firstname': $scope.vitalsignform.firstname,
-						'middlename': $scope.vitalsignform.middlename,
-						'lastname': $scope.vitalsignform.lastname,
-						'workerid': response.data.workerid
-					});
-					$scope.savebuttonenable = true;
-					$scope.userregister = false;
-					$scope.walkinpatientform = {};
-					$scope.usernameexistid = "";
-					$scope.walkinpatientformmessage = "";
-					$scope.alertmessage = "";
-					$scope.proceed = true;
-					$scope.canel = true;
-					$scope.vitalsignform = {};
-					$scope.selecteduser = "";
-					$scope.alertmodal = "";
-					walkinuserbutton = false;
-					existinguserbutton = false;
+					location.reload();
 				});
 			}
 			
@@ -915,12 +907,126 @@ application.controller('workerhomecontroller', ['$scope', '$http', '$location', 
 			$scope.showselected = false;
 		}
 
+		$scope.medtableform = [];
+
+		$scope.medtable = function() {
+			$http({
+			method: 'GET',
+			url: './services/medtableservice.php'
+			}).then(function(response) {
+				$scope.medtableform = response.data;
+			});
+		}
+
+		$scope.medform = {};
+
+		$scope.savemed = function() {
+			$http({
+			method: 'POST',
+			url: './services/medsaveservice.php',
+			data: $scope.medform
+			}).then(function(response) {
+				$scope.medtableform.push({
+					'medid': response.data.medid,
+					'medname': response.data.name,
+					'dosage': response.data.dosage,
+					'category': response.data.category,
+					'meduse': response.data.usage
+				});
+				$scope.medform = {};
+			});
+		}
+
+		$scope.editmedform = {};
+
+		$scope.editmedmodal = function(id, name, dosage, category, usage) {
+			$scope.editmedform.id = id;
+			$scope.editmedform.name = name;
+			$scope.editmedform.dosage = dosage;
+			$scope.editmedform.category = category;
+			$scope.editmedform.usage = usage;
+		}
+
+		$scope.saveeditmodal = function() {
+			$http({
+			method: 'POST',
+			url: './services/editmedsaveservice.php',
+			data: $scope.editmedform
+			}).then(function(response) {
+				 location.reload();
+			});
+		}
+
+		$scope.deletemed = function(medid) {
+			$http({
+			method: 'POST',
+			url: './services/deletetmedservice.php',
+			data: {'id': medid}
+			}).then(function(response) {
+				location.reload();
+			});
+		}
+
+		$scope.closeeditmedmodal = function() {
+			$scope.editmedform = {};
+		}
+
+		$scope.medcancelmodal = function() {
+			$scope.medform = {};
+		}
+
+		$scope.userdrugalleryform = [];
+
+		$scope.userdrugallerytable = function() {
+			$http({
+			method: 'GET',
+			url: './services/userdrugallergyservice.php'
+			}).then(function(response) {
+				$scope.userdrugalleryform = response.data;
+			});
+		}
+
+		$scope.userallergymodalform = [];
+		$scope.userid = "";
+		$scope.allergyform = {};
+
+		$scope.allergymodal = function(userid) {
+			$scope.userid = userid;
+			$http({
+			method: 'POST',
+			url: './services/userallergyservice.php',
+			data: {'id': userid}
+			}).then(function(response) {
+				$scope.userallergymodalform = response.data;
+				$scope.allergyform.userid = userid;
+			});
+		}
+
+		$scope.allergymodalclose = function() {
+			$scope.userallergymodalform = [];
+			$scope.userid = "";
+			$scope.allergyform = {};
+		}
+
+		$scope.saveallergy = function() {
+			$http({
+			method: 'POST',
+			url: './services/saveallergyservice.php',
+			data: $scope.allergyform
+			}).then(function(response) {
+				location.reload();
+			});
+		}
+
 		$scope.existingusers();
 		$scope.vitalsigntable();
+		$scope.medtable();
+		$scope.userdrugallerytable();
 
 	}]);		
 		
 application.controller('usercontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
+
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
 		});
@@ -934,6 +1040,16 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 		$scope.pageSizer = 10;
 		$scope.currentPager = 1;
 
+		$scope.pageSizervitalsign = 10;
+		$scope.currentPagervitalsign = 1;
+
+		$scope.pageSizerdiagnose = 10;
+		$scope.currentPagerdiagnose = 1;
+
+		$scope.pageSizemed = 10;
+		$scope.currentPagemed = 1;
+
+
 		$scope.resizescreen = $(".well").outerHeight() + 2500 + "px";
 		var screensize = $(".well").outerHeight() + 300 + "px";
 
@@ -945,6 +1061,7 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 		}).then(function(response) {
 			console.log(response);
 			if(response.data.usersession == true) {
+
 				$location.path("/userhome");
 			} else {
 				$location.path("/homepage");
@@ -958,6 +1075,10 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 		$scope.time = "";
 		$scope.schedmessage = "";
 		$scope.id = "";
+		$scope.dociduser = "";
+		$scope.ftimem = "";
+		$scope.ttimem = "";
+		$scope.appointmentID = "";
 
 		$http({
 			method: 'GET',
@@ -992,6 +1113,9 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 			$scope.time = "";
 			$scope.schedmessage = "";
 			$scope.id = "";
+			$scope.ftimem = "";
+			$scope.ttimem = "";
+			$scope.dociduser = "";
 		}
 
 		$scope.selectschedmodalclose = function() {
@@ -1000,14 +1124,18 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 			$scope.time = "";
 			$scope.schedmessage = "";
 			$scope.id = "";
+			$scope.dociduser = "";
 		}
 
 
 
-		$scope.selectedschedmodal = function(id, desc, time) {
+		$scope.selectedschedmodal = function(id, desc, time, fromtimemoadal, totimemodal, dociduser) {
 			$scope.id = id;
 			$scope.desc = desc;
 			$scope.time = time;
+			$scope.ftimem = fromtimemoadal;
+			$scope.ttimem = totimemodal;
+			$scope.dociduser= dociduser;
 		}
 
 		$scope.doctorschedulemodal = function(id) {
@@ -1020,17 +1148,32 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 			});
 		}
 
+		$scope.cancelModal = function(aID) {
+			$scope.appointmentID = aID;
+			console.log($scope.appointmentID);
+		}
+
+		$scope.userappointmentcancel = function() {
+			$http({
+				method: 'POST',
+				url: './services/usercancelappointmentservice.php',
+				data: {'appointmentid': $scope.appointmentID}
+			}).then(function(response) {
+				location.reload();
+			});
+		}
+
+		$scope.cancelac = function() {
+			$scope.appointmentID = "";
+		}
+
 		$scope.saveselectedsched = function() {
 			$http({
 				method: 'POST',
 				url: './services/saveselectedschedservice.php',
-				data: {'id': $scope.id, 'desc': $scope.desc, 'time': $scope.time}
+				data: {'id': $scope.id, 'desc': $scope.desc, 'time': $scope.time, 'doctorid': $scope.dociduser}
 			}).then(function(response) {
-				if(response.data.appointmentexist == true) {
-					$scope.schedmessage = "The schedule already exists";
-				} else {
-					location.reload();
-				}
+					location.reload();	
 			});
 		}
 
@@ -1042,6 +1185,7 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 				url: './services/appointmenttableservice.php'
 			}).then(function(response) {
 				$scope.appointmentform = response.data;
+				console.log(response);
 			});
 		}
 
@@ -1057,9 +1201,53 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 			});
 		}
 
+		$scope.diagnosetableuserform = [];
+
+		$scope.diagnosisusertable = function() {
+			$http({
+				method: 'GET',
+				url: './services/diagnosistableserviceuser.php'
+			}).then(function(response) {
+				$scope.diagnosetableuserform = response.data;
+			});
+		}
+
+		$scope.diagnosemodalform = [];
+
+		$scope.diagnosemodal = function(date, description, complaint, diagnosis, recommendation, drugallergies, doctorfirstname, doctormiddlename, doctorlastname) {
+			$scope.diagnosemodalform.push({
+				'date': date,
+				'description': description,
+				'complaint': complaint,
+				'diagnosis': diagnosis,
+				'recommendation': recommendation,
+				'drugallergies': drugallergies,
+				'doctorfirstname': doctorfirstname,
+				'doctormiddlename': doctormiddlename,
+				'doctorlastname': doctorlastname
+			});
+		}
+
+		$scope.diagnoseclosemodal = function() {
+			$scope.diagnosemodalform = [];
+		}
+
+		$scope.medtableform = [];
+
+		$scope.medtable = function() {
+			$http({
+				method: 'GET',
+				url: './services/medtableuserservice.php'
+			}).then(function(response) {
+				$scope.medtableform = response.data;
+			});
+		}
+
 		$scope.vitalsigntable();
 		$scope.appointmenttable();
 		$scope.getdoctors();
+		$scope.diagnosisusertable();
+		$scope.medtable();
 
 	}]);
 		
@@ -1096,14 +1284,25 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 		$scope.pageSizevitalsign = 10;
 		$scope.currentPagevitalsign = 1;
 
+		$scope.pageSizediagnosis = 10;
+		$scope.currentPagediagnosis = 1;
+
+		$scope.pageSizediagnosistable = 10;
+		$scope.currentPagediagnosistable = 1;
+
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
 		});
 
+		$('#timepicker1').timepicker();
+		$('#timepicker2').timepicker();
+		$('#timepicker3').timepicker();
+		$('#timepicker4').timepicker();
 
 		$('.datepicker').datepicker({
-		    startDate: '-3d'
-		});
+		    startDate: '-3d',
+		    dateFormat: 'mm-dd-yy'
+		}).val();
 
 		$http({
 			method: 'GET',
@@ -1125,7 +1324,7 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 		});
 		}
 
-		$scope.resizescreen = $(".well").outerHeight() + 900 + "px";
+		$scope.resizescreen = $(".well").outerHeight() + 1200 + "px";
 		var screensize = $(".well").outerHeight() + 300 + "px";
 
 		$scope.collapsebuttonadd = function() {
@@ -1151,6 +1350,7 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 			url: './services/saveschedservice.php',
 			data: $scope.schedform
 			}).then(function(response) {
+				console.log(response);
 				if(response.data.schedexist == true) {
 					$scope.schedformmessage = "Schedule already exist.";
 				} else {
@@ -1159,6 +1359,9 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 						'scheddesc': response.data.desc,
 						'schedtime': response.data.sched,
 						'date_created': response.data.datecreate,
+						'availability': response.data.availability,
+						'fromtime': response.data.ftime,
+						'totime': response.data.ttime,
 						'docid': response.data.docid
 					});
 				}
@@ -1186,11 +1389,17 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 			});
 		}
 
-		$scope.schededitmodal = function(id, desc, sched) {
+		$scope.closeupdatemodalsched = function() {
+			$scope.schedupdateform = [];
+		}
+
+		$scope.schededitmodal = function(id, desc, sched, ftimeupdate, ttimeupdate) {
 			$scope.schedupdateform.push({
 				'id': id,
 				'desc': desc,
-				'sched': sched
+				'sched': sched,
+				'fromtimeedit': ftimeupdate,
+				'totimeedit': ttimeupdate
 			});
 		}
 
@@ -1213,7 +1422,195 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 			});
 		}
 
+
+
+		$scope.expiresched = function() {
+			var expiretime = new Date();
+			if(expiretime.getHours() == 18) {
+				$http({
+				method: 'POST',
+				url: './services/schedexpire.php'
+				}).then(function(response) {
+					location.reload();
+					// $scope.expiremodarray = response;
+					// $('#myModal').modal('show');
+				});
+			}
+		}
+
+		$scope.patientschedarray = [];
+
+		$scope.patientsched = function() {
+			$http({
+			method: 'GET',
+			url: './services/patientschedservice.php'
+			}).then(function(response) {
+				$scope.patientschedarray = response.data;
+			});
+		}
+
+		$scope.appointmentid = "";
+		$scope.useridmodal = "";
+		$scope.allergymodalform = [];
+		$scope.alertalergy = "";
+
+		$scope.diagnosemodal = function(diagnosemodalappointment,userid) {
+			$scope.appointmentid = diagnosemodalappointment;
+			$scope.useridmodal = userid;
+		}
+
+		$scope.diagnoseform = {};
+
+		$scope.closediagnosemodal = function() {
+			$scope.diagnoseform = {};
+			$scope.useridmodal = "";
+			$scope.appointmentid = "";
+			$scope.allergymodalform = [];
+			$scope.alertalergy = "";
+		}
+
+		$scope.collapseallergy = function() {
+			$http({
+			method: 'POST',
+			url: './services/userallergycollapseservice.php',
+			data: {'id': $scope.useridmodal}
+			}).then(function(response) {
+				$scope.allergymodalform = response.data;
+				if($scope.allergymodalform.length <= 0) {
+					$scope.alertalergy = "No allergies";
+				}
+			});
+		}
+
+		$scope.saveDiagnosemodal = function() {
+			$scope.diagnoseform.appointmentid = $scope.appointmentid;
+			$http({
+			method: 'POST',
+			url: './services/savediagnoseservice.php',
+			data: $scope.diagnoseform
+			}).then(function(response) {
+				location.reload();
+			});
+		}
+
+		$scope.diagnosetableform = [];
+
+		$scope.diagnosetable = function() {
+			$http({
+			method: 'GET',
+			url: './services/diagnosetableservice.php'
+			}).then(function(response) {
+
+				$scope.diagnosetableform = response.data;
+				console.log($scope.diagnosetableform);
+			});
+		}
+
+		$scope.diagnosetabledelete = function(diagnoseID) {
+			$http({
+			method: 'POST',
+			url: './services/diagnosedeleteservice.php',
+			data: {'id': diagnoseID}
+			}).then(function(response) {
+				location.reload();
+			});
+		}
+
+		$scope.diagnoseeditform = {};
+
+		$scope.diagnoseedit = function(id, description, complaint, diagnosis, recommendation, drugallergies) {
+			$scope.diagnoseeditform.diagnoseid = id;
+			$scope.diagnoseeditform.description = description;
+			$scope.diagnoseeditform.complaint = complaint;
+			$scope.diagnoseeditform.diagnosis = diagnosis;
+			$scope.diagnoseeditform.recommendation = recommendation;
+			$scope.diagnoseeditform.drugallergies = drugallergies;
+		}
+
+		$scope.diagnoseeditsave = function() {
+			$http({
+			method: 'POST',
+			url: './services/diagnosesaveeditservice.php',
+			data: $scope.diagnoseeditform
+			}).then(function(response) {
+				location.reload();
+			});
+		}
+
+		$scope.diagnoseeditclose = function() {
+			$scope.diagnoseeditform = {};
+		}
+
 		$scope.schedtable();
 		$scope.vitalsigntable(); 
+		$scope.expiresched();
+		$scope.patientsched();
+		$scope.diagnosetable();
 
+	}]);
+
+	application.controller('printcontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
+
+		$scope.pageSize = 10;
+		$scope.currentPage = 1;
+
+		$scope.pageSizeupdate = 10;
+		$scope.currentPageupdate = 1;
+
+		$scope.pageSizemed = 10;
+		$scope.currentPagemed = 1;
+
+		$scope.pageSizedrugallergy = 10;
+		$scope.currentPagedrugallergy = 1;
+
+		$scope.pageSizedrugallergymodal = 10;
+		$scope.currentPagedrugallergymodal = 1;
+
+		$(document).ready(function() {
+				$(".loading").fadeOut("slow");
+		});
+
+		$scope.savebuttonenable = true;
+		$scope.userregister = false;
+		$scope.walkinpatientform = {};
+		$scope.usernameexistid = "";
+		$scope.walkinpatientformmessage = "";
+		$scope.alertmessage = "";
+		$scope.proceed = true;
+		$scope.canel = true;
+		$scope.vitalsignform = {};
+		$scope.tableform = [];
+		$scope.selecteduser = "";
+		$scope.alertmodal = "";
+		$scope.showselected = true;
+		var existinguserbutton = false;
+		var walkinuserbutton = false;
+		
+		$http({
+			method: 'GET',
+			url: './services/workerChecksession.php'
+		}).then(function(response) {
+			console.log(response);
+			if(response.data.workersession == true) {
+				$location.path("/print");
+			} else {
+				$location.path("/worker");
+			}
+		});
+
+		$scope.logout = function() {
+			$http({
+			method: 'GET',
+			url: './services/hospworkerlogoutservice.php'
+			}).then(function(response) {
+				$location.path("/worker");
+			});
+		}
+
+		$scope.backbutton = function() {
+			$location.path("/hospworkerhome");
+		}
+
+		$scope.resizescreen = $(".well").outerHeight() + 700 + "px";
+		var screensize = $(".well").outerHeight() + 900 + "px";
 	}]);		

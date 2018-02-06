@@ -35,6 +35,9 @@
 			</nav>  
 		</div>	
 <div class="loading">Loading&#8230;</div>
+		<div id="login" title="Error">
+			<h1>Invalid username or password</h1>
+		</div>
 		<!-- Modal -->
 		<div id="loginmodal" class="modal fade" role="dialog">
 		  <div class="modal-dialog modal-sm">
@@ -58,8 +61,7 @@
 					    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 					    <input id="password" type="password" ng-model="loginform.password" class="form-control" name="password" placeholder="Password">
 					  </div><br>
-					  <button class="btn btn-success btn-md center-block" ng-click="loginuser()">Login</button><br>
-					  <strong class="alert alert-danger" ng-hide="loginformmessagehide">{{loginformmessage}}</strong>
+					  <button class="btn btn-success btn-md center-block" ng-click="loginuser()" data-dismiss="modal">Login</button>
 		        </form>
 		        <br>
 		      </div>
@@ -175,8 +177,8 @@
 				</div>
 			</div>
 			<div class="col-md-6 about-right">
-				<h2>Integer euismod in orci quis</h2>
-				<p>Nullam maximus consequat bibendum. Integer euismod in orci quis tempus. Nunc sed ligula facilisisNullam maximus consequat bibendum. Integer euismod in orci quis tempus. Nunc sed ligula facilisisNullam maximus consequat bibendum. Integer euismod in orci quis tempus. Nunc sed ligula facilisis</p>
+				<h2>Prescription Checker</h2>
+				<p>The prescription checker system aims to provide a system which can manage user account, prescription check, appointment, and medicine reference.</p>
 				<a href="#myModal" class="w3more" data-toggle="modal"><i class="fa fa-mail-forward" aria-hidden="true"></i> Read more</a>
 			</div>
 			<div class="clearfix"></div>
@@ -195,7 +197,7 @@
 		<div class="modal-body">
 			<div class="agileits-w3layouts-info">
 				<img src="images/about.jpg" alt="" />
-				<p>Duis venenatis, turpis eu bibendum porttitor, sapien quam ultricies tellus, ac rhoncus risus odio eget nunc. Pellentesque ac fermentum diam. Integer eu facilisis nunc, a iaculis felis. Pellentesque pellentesque tempor enim, in dapibus turpis porttitor quis. Suspendisse ultrices hendrerit massa. Nam id metus id tellus ultrices ullamcorper.  Cras tempor massa luctus, varius lacus sit amet, blandit lorem. Duis auctor in tortor sed tristique. Proin sed finibus sem.</p>
+				<p>The prescription checker system aims to provide a system which can manage user account, prescription check, appointment, and medicine reference.</p>
 			</div>
 		</div>
 		</div>
@@ -213,12 +215,10 @@
 				</div>
 <div class="horizontalTab" id="horizontalTab">
 	<ul class="resp-tabs-list list-group">
-		<li class="list-group-item text-center">Service 1</li>
-		<li class="list-group-item text-center">Service 2</li>
-		<li class="list-group-item text-center">Service 3</li>
-		<li class="list-group-item text-center">Service 4</li>
-		<li class="list-group-item text-center">Service 5</li>
-		<li class="list-group-item text-center">Service 6</li>
+		<li class="list-group-item text-center">Appointment</li>
+		<li class="list-group-item text-center">User Account</li>
+		<li class="list-group-item text-center">Precription Checker</li>
+		<li class="list-group-item text-center">Medicine Reference</li>
 	</ul>
 	<div class="resp-tabs-container">
 		<!-- section -->
@@ -228,15 +228,9 @@
 										<img src="images/s6.jpg" title="service" alt="" />
 									</div>
 									<div class="ser-info">
-										<h3>Contrary to popular belief, Lorem Ipsum is not simply text</h3>
-										<p>Integer sed blandit nisi, eget tempor nulla. Vivamus ut mi nec quam iaculis ultricies. 
-										Maecenas at placerat metus. Curabitur arcu purus, eleifend ut massa at, fringilla sagittis quam. 
-										Nulla volutpat tellus orci, id laoreet ante pretium id. Ut iaculis quis eros ac bibendum.
+										<h3>Appointment</h3>
+										<p>Users can set appointment to the doctor.
 										</p>
-										<p>Pellentesque finibus dapibus volutpat. Curabitur imperdiet vulputate rhoncus. Nullam 
-										scelerisque magna non turpis euismod bibendum. 
-										</p>
-										<a href="#myModal" data-toggle="modal"><i class="fa fa-mail-forward" aria-hidden="true"></i> Read More</a>
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -248,15 +242,10 @@
 										<img src="images/s5.jpg" title="service" alt="" />
 									</div>
 									<div class="ser-info">
-										<h3>At vero eos et accusamus et iusto dignissimos ducimus qui</h3>
-										<p>Integer sed blandit nisi, eget tempor nulla. Vivamus ut mi nec quam iaculis ultricies. 
-										Maecenas at placerat metus. Curabitur arcu purus, eleifend ut massa at, fringilla sagittis quam. 
-										Nulla volutpat tellus orci, id laoreet ante pretium id. Ut iaculis quis eros ac bibendum.
+										<h3>User Account</h3>
+										<p>Users can register account.
 										</p>
-										<p>Pellentesque finibus dapibus volutpat. Curabitur imperdiet vulputate rhoncus. Nullam 
-										scelerisque magna non turpis euismod bibendum. 
-										</p>
-										<a href="#myModal" data-toggle="modal"><i class="fa fa-mail-forward" aria-hidden="true"></i> Read More</a>
+										
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -269,15 +258,10 @@
 										<img src="images/s1.jpg" title="service" alt="" />
 									</div>
 									<div class="ser-info">
-										<h3>On the other hand, we denounce with righteous indignation</h3>
-										<p>Integer sed blandit nisi, eget tempor nulla. Vivamus ut mi nec quam iaculis ultricies. 
-										Maecenas at placerat metus. Curabitur arcu purus, eleifend ut massa at, fringilla sagittis quam. 
-										Nulla volutpat tellus orci, id laoreet ante pretium id. Ut iaculis quis eros ac bibendum.
+										<h3>Prescription Checker</h3>
+										<p>Provides prescription checker to ensure proper prescription.
 										</p>
-										<p>Pellentesque finibus dapibus volutpat. Curabitur imperdiet vulputate rhoncus. Nullam 
-										scelerisque magna non turpis euismod bibendum. 
-										</p>
-										<a href="#myModal" data-toggle="modal"><i class="fa fa-mail-forward" aria-hidden="true"></i> Read More</a>
+										
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -288,15 +272,10 @@
 										<img src="images/s4.jpg" title="service" alt="" />
 									</div>
 									<div class="ser-info">
-										<h3>Laboris nisi ut aliquip ex ea commodo consequat indignation</h3>
-										<p>Integer sed blandit nisi, eget tempor nulla. Vivamus ut mi nec quam iaculis ultricies. 
-										Maecenas at placerat metus. Curabitur arcu purus, eleifend ut massa at, fringilla sagittis quam. 
-										Nulla volutpat tellus orci, id laoreet ante pretium id. Ut iaculis quis eros ac bibendum.
+										<h3>Medical Reference</h3>
+										<p>Provides a list of medicine reference.
 										</p>
-										<p>Pellentesque finibus dapibus volutpat. Curabitur imperdiet vulputate rhoncus. Nullam 
-										scelerisque magna non turpis euismod bibendum. 
-										</p>
-										<a href="#myModal" data-toggle="modal"><i class="fa fa-mail-forward" aria-hidden="true"></i> Read More</a>
+										
 									</div>
 									<div class="clearfix"></div>
 								</div>
@@ -344,139 +323,6 @@
 </div>
 </div>
 <!-- //tabs -->    <!-- services -->
-
-<!-- team -->	<!-- Our specialists -->
-		<div class="line">
-		</div>
-	<div class="team" id="team">
-		<div class="container">
-			<div class="w3ls-heading">
-				<h3>Meet Our Specialists</h3>
-			</div>
-			<div class="agile_team_grids">
-				<div class="col-md-3 agile_team_grid  agile_team_gridf">
-					<div class="agile_team_grid_main">
-						<img src="images/t.jpg" alt=" " class="img-responsive" />
-						<div class="p-mask">
-							<ul class="social-icons">
-								<li><a href="#" class="icon-button twitter"><i class="icon-twitter"></i><span></span></a></li>
-								<li><a href="#" class="icon-button google"><i class="icon-google"></i><span></span></a></li>
-								<li><a href="#" class="icon-button v"><i class="icon-v"></i><span></span></a></li>
-								<li><a href="#" class="icon-button pinterest"><i class="pinterest"></i><span></span></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="agile_team_grid1">
-						<h4>Elisa liden</h4>
-						<p>Numerology</p>
-					</div>
-				</div>
-				<div class="col-md-3 agile_team_grid agile_team_grid2">
-					<div class="agile_team_grid_main">
-						<img src="images/t2.jpg" alt=" " class="img-responsive" />
-						<div class="p-mask">
-							<ul class="social-icons">
-								<li><a href="#" class="icon-button twitter"><i class="icon-twitter"></i><span></span></a></li>
-								<li><a href="#" class="icon-button google"><i class="icon-google"></i><span></span></a></li>
-								<li><a href="#" class="icon-button v"><i class="icon-v"></i><span></span></a></li>
-								<li><a href="#" class="icon-button pinterest"><i class="pinterest"></i><span></span></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="agile_team_grid1">
-						<h4>Martina</h4>
-						<p>Dentist</p>
-					</div>
-				</div>
-				<div class="col-md-3 agile_team_grid agile_team_grid3">
-					<div class="agile_team_grid_main">
-						<img src="images/tt.png" alt=" " class="img-responsive" />
-						<div class="p-mask">
-							<ul class="social-icons">
-								<li><a href="#" class="icon-button twitter"><i class="icon-twitter"></i><span></span></a></li>
-								<li><a href="#" class="icon-button google"><i class="icon-google"></i><span></span></a></li>
-								<li><a href="#" class="icon-button v"><i class="icon-v"></i><span></span></a></li>
-								<li><a href="#" class="icon-button pinterest"><i class="pinterest"></i><span></span></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="agile_team_grid1">
-						<h4>Vickey alter</h4>
-						<p>Surgery Specialist</p>
-					</div>
-				</div>
-				<div class="col-md-3 agile_team_grid agile_team_grid4">
-					<div class="agile_team_grid_main">
-						<img src="images/t4.jpg" alt=" " class="img-responsive" />
-						<div class="p-mask">
-							<ul class="social-icons">
-								<li><a href="#" class="icon-button twitter"><i class="icon-twitter"></i><span></span></a></li>
-								<li><a href="#" class="icon-button google"><i class="icon-google"></i><span></span></a></li>
-								<li><a href="#" class="icon-button v"><i class="icon-v"></i><span></span></a></li>
-								<li><a href="#" class="icon-button pinterest"><i class="pinterest"></i><span></span></a></li>
-							</ul>
-						</div>
-					</div>
-					<div class="agile_team_grid1">
-						<h4>Rose mary</h4>
-						<p>Skin care expert</p>
-					</div>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-		</div>
-	</div>
-<!-- //team -->	<!-- //Our specialists -->
-
-<!-- appointment form -->
-<div class="line">
-</div>
-<div class="appointment">
-	<div class="container">
-		<div class="w3ls-heading">
-			<h3>Make an appointment today</h3>
-		</div>
-		<div class="appointment-grid">
-			<div class="col-md-4 appointmnet-left">
-				<div class="inner">
-					<div class="working-grid">
-						<h4>working hours</h4>
-						<p><i class="fa fa-calendar" aria-hidden="true"></i><span>Mon to fri</span> <span class="span1">9:00 am to 6:30 pm</span></p>
-						<p><i class="fa fa-calendar" aria-hidden="true"></i><span>sat</span> <span class="span1">9:00 am to 10:00 pm</span></p>
-						<p><i class="fa fa-calendar" aria-hidden="true"></i><span>sun</span> <span class="span1">10:00 am to 1:00 pm</span></p>
-					<div class="clearfix"></div>
-					</div>
-					<div class="working-grid1">
-						<h4>For help</h4>
-						<h5><i class="fa fa-pencil" aria-hidden="true"></i>For appointment fill the form</h5>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sit amet ultrices odio.</p>
-					<div class="clearfix"></div>
-					</div>
-					<div class="clearfix"></div>
-				</div>
-			</div>
-			<div class="col-md-4 appointmnet-middle">
-				<div class="inner">
-					<h4>Appointment form</h4>
-					<form action="#" name="row" method="post" class="register">
-						<input type="text" name="name" id="name" placeholder="Name" required="">
-						<input type="email" name="email" id="Email" placeholder="Email id" required="">
-						<input type="text" name="mobile number" id="Mobile_Number" placeholder="Mobile Number" required="">
-						<input class="date" id="datepicker" type="text" value="Appointment date" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Appointment date';}" required="">
-						<textarea onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter Message...';}" >Enter Message...</textarea>
-						<input type="submit" onclick="myFunction()" value="book appointment ">
-					</form>
-				</div>
-			</div>
-			<div class="col-md-4 appointmnet-right">
-				<div class="inner">
-					<img src="images/tt.png" alt=""/>
-				</div>
-			</div>
-			<div class="clearfix"></div>
-		</div>
-	</div>
-</div>
 <!-- //appointment form -->
 
 <!-- Laboratories -->
@@ -801,10 +647,10 @@
 			<div class="col-md-6 contact-left-">
 				<div class="left-top">
 					<h4>Contact information</h4>
-					<p><i class="fa fa-calendar" aria-hidden="true"></i><strong>Monday - Friday <span class="dot">:</span></strong>9:30 AM to 6:30 PM</p>
-					<p><i class="fa fa-map-marker" aria-hidden="true"></i><strong class="p">address <span class="dot1">:</span></strong>Chicago, 5th main road, carnivalle</p>
-					<p><i class="fa fa-phone" aria-hidden="true"></i><strong class="p1">phone <span class="dot2">:</span></strong>+040 2345 6789</p>
-					<p><i class="fa fa-envelope" aria-hidden="true"></i><strong class="p2">email <span class="dot3">:</span></strong><a href="mailto:info@example.com">example@email.com</a></p>
+					<p><i class="fa fa-calendar" aria-hidden="true"></i><strong>Monday - Friday <span>:</span></strong>9:30 AM to 6:30 PM</p>
+					<p><i class="fa fa-map-marker" aria-hidden="true"></i><strong class="p">address <span>:</span></strong>Chicago, 5th main road, carnivalle</p>
+					<p><i class="fa fa-phone" aria-hidden="true"></i><strong class="p1">phone <span>:</span></strong>+040 2345 6789</p>
+					<p><i class="fa fa-envelope" aria-hidden="true"></i><strong class="p2">email <span>:</span></strong><a href="mailto:info@example.com">example@email.com</a></p>
 				</div>
 				<div class="left-bottom">
 					<h4>get connected</h4>
@@ -818,29 +664,14 @@
 							<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
 						</ul>
 					</div>
-
+``
 				</div>
 			</div>
 			<div class="col-md-6 contact-right">
 				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2970.296948478801!2d-87.70494908450506!3d41.88647047922158!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e32a54d21f20f%3A0x51b98b6ffbdca819!2sW+Fulton+St%2C+Chicago%2C+IL%2C+USA!5e0!3m2!1sen!2sin!4v1489574334335"></iframe>
 			</div>
 			<div class="clearfix"></div>
-		</div>
-			<div class="contact-w3ls">
-				<form action="#" method="post">
-					<div class="col-md-7 col-sm-7 contact-left agileits-w3layouts">
-						<input type="text" name="First Name" placeholder="Name" required="">
-						<input type="email"  class="email" name="Email" placeholder="Email" required="">
-						<input type="text" name="Number" placeholder="Mobile Number" required="">
-						<!-- <input type="text" class="email" name="Last Name" placeholder="Last Name" required=""> -->
-					</div> 
-					<div class="col-md-5 col-sm-5 contact-right agileits-w3layouts">
-						<textarea name="Message" placeholder="Message" required=""></textarea>
-						<input type="submit" value="Submit">
-					</div>
-					<div class="clearfix"> </div> 
-				</form>
-			</div>  
+		</div> 
 
 	</div>
 </div>
