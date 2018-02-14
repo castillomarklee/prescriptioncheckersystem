@@ -104,7 +104,7 @@
 										    <tbody>
 										      <tr ng-repeat="q in userallergymodalform | startFrom:(currentPagedrugallergymodal - 1) * pageSizedrugallergymodal | limitTo:pageSizedrugallergymodal">
 										        <td>{{q.firstname}} {{q.middlename}} {{q.lastname}}</td>
-										        <td>{{q.dname}}</td>
+										        <td>{{q.dname | capitalize}}</td>
 										        <td>{{q.date_created}}</td>
 										      </tr>
 										    </tbody>

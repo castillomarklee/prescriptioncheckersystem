@@ -30,8 +30,8 @@
 						          <li><a style="cursor: pointer; color: black;" href="#!admindoctorservice">Doctor</a></li>
 									<li><a style="cursor: pointer; color: black;" href="#!adminworkerservice">Worker</a></li>
 									<li><a style="cursor: pointer; color: black;" href="#!adminuser">User</a></li>
-									<li><a style="cursor: pointer; color: black;">Appointment</a></li>
-									<li><a style="cursor: pointer; color: black;">Diagnose</a></li>
+									<li><a style="cursor: pointer; color: black;" href="#!adminappointment">Appointment</a></li>
+									<li><a style="cursor: pointer; color: black;" href="#!admindiagnosis">Diagnose</a></li>
 									<li><a style="cursor: pointer; color: black;">Schedule</a></li>
 									<li><a style="cursor: pointer; color: black;">Vital Signs</a></li>
 						        </ul>
@@ -102,7 +102,7 @@
 						        <td>{{i.nationality}}</td>
 						        <td>{{i.username}}</td>
 						        <td>{{i.password}}</td>
-						        <td><button type="button" class="btn btn-info btn-md">Delete</button></td>
+						        <td><button type="button" class="btn btn-info btn-md" ng-click="deleteuseraccount(i.userid)">Delete</button></td>
 						        <td><button type="button" class="btn btn-warning btn-md" data-toggle="modal" data-target="#updatedoctor" ng-click="updateusermodal(i.userid, i.firstname, i.middlename, i.lastname, i.age, i.gender, i.address, i.nationality, i.username, i.password)">Update</button></td>
 						      </tr>
 						  </table>

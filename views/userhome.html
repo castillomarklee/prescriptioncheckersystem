@@ -190,7 +190,7 @@
 							      </tr>
 							    </thead>
 							    <tbody>
-							      <tr ng-repeat="q in diagnosetableuserform | startFrom:(currentPagerdiagnose - 1) * pageSizerdiagnose | limitTo:pageSizerdiagnose | filter: diagnosesearch">
+							      <tr ng-repeat="q in diagnosetableuserform | startFrom:(currentPagerdiagnose - 1) * pageSizerdiagnose | limitTo:pageSizerdiagnose">
 							        <td>{{q.diagnoseid}}</td>
 							        <td>{{q.patientcomplain}}</td>
 							        <td>{{q.appointmentdate}}</td>
@@ -234,13 +234,13 @@
 						<h2 style="font-family: Monotype Corsiva;">Doctors</h2>
 						<ul uib-pagination total-items="doctorsform.length" ng-model="currentPage" ng-change="pageSize" style="margin-left: 430px;"></ul>
 						<div class="input-group col-xs-4" style="margin-left: 350px;">
-    <input type="text" class="form-control" ng-model="docfilter" placeholder="Search">
-    <div class="input-group-btn">
-      <button class="btn btn-default" type="button">	
-        <i class="glyphicon glyphicon-search"></i>
-      </button>
-    </div>
-  </div>
+						    <input type="text" class="form-control" ng-model="docfilter" placeholder="Search">
+						    <div class="input-group-btn">
+						      <button class="btn btn-default" type="button">	
+						        <i class="glyphicon glyphicon-search"></i>
+						      </button>
+						    </div>
+						  </div>
 						
 
 
@@ -249,7 +249,7 @@
 								<!-- Left-aligned -->
 								<div class="media">
 								  <div class="media-left">
-								    <img src="images/t.jpg" class="media-object" style="width:170px; height: 200px; padding-left: 5px;">
+								    <img src="./upload/{{z.photolink}}" class="media-object" style="width:170px; height: 200px; padding-left: 5px;">
 								  </div><br>
 								  <div class="media-body">
 								    <h4 class="media-heading" style="text-align: center;">{{z.firstname}}</h4>

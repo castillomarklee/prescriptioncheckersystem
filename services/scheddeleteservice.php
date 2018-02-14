@@ -8,4 +8,6 @@
 
 	$query = mysqli_query($conn, "DELETE FROM docsched WHERE schedid='$id'");
 
+	$appointmentdelete = mysqli_query($conn, "DELETE from appointment WHERE schedid='$id'")
+
  ?>

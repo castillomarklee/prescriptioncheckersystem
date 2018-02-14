@@ -22,7 +22,7 @@
 						<ul class="nav navbar-nav navbar-right cl-effect-15">
 							<!-- Hidden li included to remove active class from about link when scrolled up past about section -->
 							<li class="hidden"><a class="page-scroll" href="#page-top"></a>	</li>
-							<li><a class="page-scroll scroll" data-toggle="modal" data-target="#registerModal" style="cursor: pointer;">Settings</a></li>
+							<li><a class="page-scroll scroll" data-toggle="modal" href="#!doctorsetting" style="cursor: pointer;">Settings</a></li>
 							<li><a ng-click="logout()" style="cursor: pointer;">Log out</a></li>
 						</ul>
 					</div>
@@ -108,7 +108,7 @@
 							        	<textarea class="form-control" ng-model="diagnoseform.description" placeholder="Description"></textarea><br>
 							        	<textarea class="form-control" ng-model="diagnoseform.complaint" placeholder="Complaint"></textarea><br>
 							        	<textarea class="form-control" ng-model="diagnoseform.diagnosis" placeholder="Diagnosis"></textarea><br>
-							        	<textarea class="form-control" ng-model="diagnoseform.recommendation" placeholder="Recommendation"></textarea><br>
+							        	<textarea class="form-control" id="recommendationtextarea" ng-model="diagnoseform.recommendation" placeholder="Recommendation"></textarea><br>
 							        	<textarea class="form-control" ng-model="diagnoseform.allergies" placeholder="Drug Allergies"></textarea><br>
 							        	<button class="btn btn-primary btn-md center-block" ng-click="saveDiagnosemodal()" style="width: 120px;">Save</button>
 							      </div>
@@ -149,7 +149,8 @@
 									        <h1>{{dt}}</h1> -->
 							      	
 							      		 
-							        <input class="datepicker form-control" datepicker-popup="MM-dd-yyyy" ng-model="schedform.sched" data-date-format="mm/dd/yyyy" placeholder="Date"><br>
+							        <input class="datepicker form-control" datepicker-popup="MM-dd-yyyy" ng-model="schedform.sched" placeholder="Date"><br>
+							        
 							         
 							         <div class="row">
 							         	<div class="col-xs-4">
@@ -290,7 +291,7 @@
 							        <textarea class="form-control" ng-model="diagnoseeditform.description" placeholder="Description"></textarea><br>
 							        <textarea class="form-control" ng-model="diagnoseeditform.complaint" placeholder="Complaint"></textarea><br>
 							        <textarea class="form-control" ng-model="diagnoseeditform.diagnosis" placeholder="Diagnosis"></textarea><br>
-							        <textarea class="form-control" ng-model="diagnoseeditform.recommendation" placeholder="Recommnendation"></textarea><br>
+							        <textarea class="form-control" ng-model="diagnoseeditform.recommendation" placeholder="Prescription"></textarea><br>
 							        <textarea class="form-control" ng-model="diagnoseeditform.drugallergies" placeholder="Drug Allergies"></textarea><br>
 							        <button type="button" class="btn btn-primary btn-md center-block" ng-click="diagnoseeditsave()" style="width: 120px;">Save</button>
 							      </div>

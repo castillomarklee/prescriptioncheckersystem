@@ -51,94 +51,88 @@
 		<div id="adminhomepagewallpaper" style="height: {{resizescreen}}">
 			<div style="width: 95%; margin-left: 30px; margin-top: 100px;">
 				<div class="well" style="background-color: rgba(0, 0, 0, 0.6);">
-					<button class="btn btn-success btn-md btn-block" style="<button class="btn btn-success btn-md" style="width: 140px; float: left;" data-toggle="collapse" ng-click="collapsebuttonadd()" data-target="#adddoctor">Add</button>
+					<button class="btn btn-success btn-md btn-block" style="<button class="btn btn-success btn-md" style="width: 140px; float: left;" data-toggle="collapse" ng-hide="true" ng-click="collapsebuttonadd()" data-target="#adddoctor">Add</button>
 					<div id="adddoctor" class="collapse">
 						<div style="margin-top: 50px; margin-left: 20px;">
-							<form method="POST" ng-submit="registerdoctor()">
-								<input type="text" class="form-control" ng-model="doctorregistrationform.firstname" placeholder="Firstname"><br>
-								<input type="text" class="form-control" ng-model="doctorregistrationform.middlename" placeholder="Middlename"><br>
-								<input type="text" class="form-control" ng-model="doctorregistrationform.lastname" placeholder="Lastname"><br>
+							<form method="POST" ng-submit="registeruser()">
+								<input type="text" class="form-control" ng-model="registeruserform.firstname" placeholder="Firstname"><br>
+								<input type="text" class="form-control" ng-model="registeruserform.middlename" placeholder="Middlename"><br>
+								<input type="text" class="form-control" ng-model="registeruserform.lastname" placeholder="Lastname"><br>
 								<input type="text" class="form-control" onkeydown='return (event.which >= 48 && event.which <= 57) 
-   || event.which == 8 || event.which == 46' ng-model="doctorregistrationform.age" placeholder="Age"><br>
-								<select class="form-control" ng-model="doctorregistrationform.gender">
+   || event.which == 8 || event.which == 46' ng-model="registeruserform.age" placeholder="Age"><br>
+								<select class="form-control" ng-model="registeruserform.gender">
 								    <option>Male</option>
 								    <option>Female</option>
 								  </select><br>
-								<input type="text" class="form-control" ng-model="doctorregistrationform.address" placeholder="Address"><br>
-								<input type="text" class="form-control" ng-model="doctorregistrationform.doctortype" placeholder="Doctor Type"><br>
-								<input type="text" class="form-control" ng-model="doctorregistrationform.username" placeholder="Username"><br>
-								<input type="text" class="form-control" ng-model="doctorregistrationform.password" placeholder="Password"><br>
+								<input type="text" class="form-control" ng-model="registeruserform.address" placeholder="Address"><br>
+								<input type="text" class="form-control" ng-model="registeruserform.nationality" placeholder="Nationality"><br>
+								<input type="text" class="form-control" ng-model="registeruserform.username" placeholder="Username"><br>
+								<input type="text" class="form-control" ng-model="registeruserform.password" placeholder="Password"><br>
 								<button type="submit" class="btn btn-primary btn-md" style=" margin-left: 500px; width: 150px;">Register</button><br>
-								<strong class="alert {{doctorregistrationformalert}}">{{doctorregistrationformmessage}}</strong>
+								<strong class="alert {{alertclass}}" style="width: 100%">{{registeruserformmessage}}</strong>
 							</form>
 						</div>
 					</div>
 					<br>
-					<br>
+ 					<br>
 					   <table class="table" style="color: white; font-size: 15px; word-break:break-all;">
 						    <thead>
 						      <tr>
 						        <th>ID</th>
-						        <th>Firstname</th>
-						        <th>Middlename</th>
-						        <th>Lastname</th>
-						        <th>Age</th>
-						        <th>Gender</th>
-						        <th>Address</th>
-						        <th>Type</th>
-						        <th>Username</th>
-						        <th>Password</th>
+						        <th>Description</th>
+						        <th>Complaint</th>
+						        <th>Diagnosis</th>
+						        <th>Recommendation</th>
+						        <th>Drug Allergies</th>
+						        <th>Patient</th>
+						        <th>Doctor</th>
 						      </tr>
 						    </thead>
 						    <tbody>
-						      <tr ng-repeat="i in doctorformtable | startFrom:(currentPage - 1) * pageSize | limitTo:pageSize">
-						        <td>{{i.doctorid}}</td>
-						        <td>{{i.firstname}}</td>
-						        <td>{{i.middlename}}</td>
-
-						        <td>{{i.lastname}}</td>
-						        <td>{{i.age}}</td>
-						        <td>{{i.gender}}</td>
-						        <td>{{i.address}}</td>
-						        <td>{{i.doctortype}}</td>
-						        <td>{{i.username}}</td>
-						        <td>{{i.password}}</td>
-						        <td><button type="button" class="btn btn-info btn-md" ng-click="deletedoctoraccount(i.doctorid)">Delete</button></td>
-						        <td><button type="button" class="btn btn-warning btn-md" data-toggle="modal" data-target="#updatedoctor" ng-click="updatedoctoraccount(i.doctorid, i.firstname, i.middlename, i.lastname, i.age, i.gender, i.address, i.doctortype, i.username, i.password)">Update</button></td>
+						      <tr ng-repeat="i in usertableformzxc | startFrom:(currentPagezxc - 1) * pageSizezxc | limitTo:pageSizezxc">
+						        <td>{{i.diagnoseid}}</td>
+						        <td>{{i.diagnosedescription}}</td>
+						        <td>{{i.patientcomplain}}</td>
+						        <td>{{i.diagnosis}}</td>
+						        <td>{{i.recomendation}}</td>
+						        <td>{{i.drugallergies}}</td>
+						        <td>{{i.userf}} {{i.userm}} {{i.userl}}</td>
+						        <td>{{i.docf}} {{i.docm}} {{i.docl}}</td>
+						        <td><button type="button" class="btn btn-info btn-md" ng-click="deleteappointment(i.appointmentid)">Delete</button></td>
 						      </tr>
 						  </table>
-						  <ul uib-pagination total-items="doctorformtable.length" ng-model="currentPage" ng-change="pageSize" style="margin-left: 500px;"></ul>
+						  <ul uib-pagination total-items="usertableformzxc.length" ng-model="currentPagezxc" ng-change="pageSizezxc" style="margin-left: 500px;"></ul>
 						  <div id="updatedoctor" class="modal fade" role="dialog">
 							  <div class="modal-dialog modal-md">
 
-							    <!-- Modal content-->
+							    Modal content
 							    <div class="modal-content" style="background-color: rgba(0, 0, 0, 0.6); color: white;">
 							      <div class="modal-header">
-							        <button type="button" class="close" data-dismiss="modal">&times;</button>
-							        <h4 class="modal-title" style="color: white;">Doctor Account</h4>
+							        <button type="button" class="close" ng-click="closemodal()" data-dismiss="modal">&times;</button>
+							        <h4 class="modal-title" style="color: white;">User</h4>
 							      </div>
 							      <div class="modal-body">
-							        <form method="POST" ng-submit="submitmodalform()">
-							        	<h1 style="font-family: Monotype Corsiva;">{{upadateformlabel.id}}</h1><br><br>
-							        	<input type="text" class="form-control" ng-model="upadateformlabel.firstname" placeholder="Firstname"><br>
-							        	<input type="text" class="form-control" ng-model="upadateformlabel.middlename" placeholder="Middlename"><br>
-							        	<input type="text" class="form-control" ng-model="upadateformlabel.lastname" placeholder="Lastname"><br>
-							        	<input type="text" class="form-control" ng-model="upadateformlabel.age" onkeydown='return (event.which >= 48 && event.which <= 57) 
+							        <form method="POST" ng-submit="submitworkermodal()">
+							        	<h1 style="font-family: Monotype Corsiva;">{{user.userid}}</h1><br><br>
+							        	<input type="text" class="form-control" ng-model="user.firstname" placeholder="Firstname"><br>
+							        	<input type="text" class="form-control" ng-model="user.middlename" placeholder="Middlename"><br>
+							        	<input type="text" class="form-control" ng-model="user.lastname" placeholder="Lastname"><br>
+							        	<input type="text" class="form-control" ng-model="user.age" onkeydown='return (event.which >= 48 && event.which <= 57) 
    || event.which == 8 || event.which == 46' placeholder="Age"><br>
-							        	<select class="form-control" ng-model="upadateformlabel.gender">
+							        	<select class="form-control" ng-model="user.genderq">
 										    <option>Male</option>
 										    <option>Female</option>
 										</select><br>
-							        	<input type="text" class="form-control" ng-model="upadateformlabel.address" placeholder="Address"><br>
-							        	<input type="text" class="form-control" ng-model="upadateformlabel.doctortype" placeholder="Doctortype"><br>
-							        	<input type="text" class="form-control" ng-model="upadateformlabel.username" placeholder="Username"><br>
-							        	<input type="text" class="form-control" ng-model="upadateformlabel.password" placeholder="Password"><br>
+							        	<input type="text" class="form-control" ng-model="user.address" placeholder="Address"><br>
+							        	<input type="text" class="form-control" ng-model="user.nationality" placeholder="Doctortype"><br>
+							        	<input type="text" class="form-control" ng-model="user.username" placeholder="Username"><br>
+							        	<input type="text" class="form-control" ng-model="user.password" placeholder="Password"><br>
 							        	<button type="submit" class="btn btn-primary btn-block">Update</button><br>
-										  <strong class="alert alert-danger" ng-hide="{{messagehide}}">{{updatemodalformmessage}}</strong>
+										  <strong class="alert alert-danger" ng-hide="{{messagehide}}">{{workerformmessage}}</strong>
 							        </form>
 							      </div>
 							      <div class="modal-footer">
-							        <button type="button" class="btn btn-default" ng-click="closemodalbutton()" data-dismiss="modal">Close</button>
+							        <button type="button" class="btn btn-default" ng-click="closemodal()" data-dismiss="modal">Close</button>
 							      </div>
 							    </div>
 

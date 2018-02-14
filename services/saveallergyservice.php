@@ -10,8 +10,9 @@
 	$workerid = $_SESSION['worker'];
 	$idd = "TSallergy-" . rand(1, 1000) . "-" . date("m-d-Y");
 	$date = date("m-d-Y");
+	$drugtolowercase = strtolower($drug);
 
-	$query = mysqli_query($conn, "INSERT INTO drugallergy VALUES('$idd', '$drug', '$date', '$id', '$workerid')");
+	$query = mysqli_query($conn, "INSERT INTO drugallergy VALUES('$idd', '$drugtolowercase', '$date', '$id', '$workerid')");
 
 
  ?>

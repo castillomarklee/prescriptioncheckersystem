@@ -31,7 +31,9 @@
 		} else {
 			$id = "TS-DOCTOR-" .rand(1, 10000). "-" .date("m-d-Y");
 			$datecreated = date("m-d-Y");
+			$photoid = "TSphoto-" . rand(1, 10000) . "-" . date("m-d-Y");
 			$query = mysqli_query($conn, "INSERT INTO doctor VALUES('$id', '$firstname', '$middlename', '$lastname', '$age', '$gender', '$address', '$doctortype', '$username', '$password', '$datecreated')");
+			$doctorphoto = mysqli_query($conn, "INSERT INTO photos VALUES('$photoid', '$id', 't.jpg')");
 		}
 	}
 
