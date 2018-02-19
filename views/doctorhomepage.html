@@ -278,9 +278,60 @@
 						        <td>{{d.firstname}} {{d.middlename}} {{d.lastname}}</td>
 						        <td><button type="button" class="btn btn-md btn-danger" ng-click="diagnosetabledelete(d.diagnoseid)">Delete</button></td>
 						        <td><button class="btn btn-md btn-info" type="button" data-toggle="modal" data-target="#diagnoseeditmodal" ng-click="diagnoseedit(d.diagnoseid, d.diagnosedescription, d.patientcomplain, d.diagnosis, d.recommendation, d.drugallergies)">Edit</button></td>
+						        <td><button class="btn btn-md btn-primary" type="button" data-toggle="modal" data-target="#prescriptionmodal" ng-click="printprescriptionmodal(d.diagnoseid)">View</button></td>
 						      </tr>
 						    </tbody>
 						  </table>
+
+						  <!-- Modal -->
+							<div id="prescriptionmodal" class="modal fade" role="dialog">
+							  <div class="modal-dialog modal-lg">
+
+							    <!-- Modal content-->
+							    <div class="modal-content" style="overflow: hidden;"">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal">&times;</button>
+							        <h4 class="modal-title">Prescription <button class="btn btn-md btn-primary" id="buttonprint" type="button">Print</button></h4>
+							      </div>
+							      <div class="modal-body" id="contentprescription" style="color: black; overflow: hidden;">
+							        <div class="print">
+							        	 <div style="text-align: center;">
+							        	<!-- <div class="col-xs-4">
+							        	<img src="./images/logo.png" height="190" width="195">
+							        	</div> -->	
+							        	<div >
+							        		<h2 style="padding-bottom: 0px; padding-top: 30px; padding-left: 8px;"><strong>TOMBOC SALAYOG HOSPITAL</strong></h2>
+											<h3 style="padding-top: 0px;">San Emmauel Tacurong City Sultan Kudarat 9800</h3>
+											<h2 style="padding-top: 0px;"><strong>CONTACT NO: 200-5760</strong></h2>
+							        	</div>	
+									</div>
+									<br><br><br>
+										<div style=" text-align: center;">
+											<h3 style="overflow: hidden;">Name: {{printtprescriptionform.ufirst}} {{printtprescriptionform.umiddle}}  {{printtprescriptionform.ulast}}                                                Age: {{printtprescriptionform.age}}            Gender: {{printtprescriptionform.gender}} </h3>
+											<h3 style="overflow: hidden;">Address: {{printtprescriptionform.address}}  </h3>
+										</div>
+										<br><br>
+										<div style="padding-left: 140px;" class="row">
+											<div class="col-xs-2">
+												<img src="./images/rx.png" height="50" width="50"><br><br>
+											</div>
+											<div class="col-xs-7">
+												<h2 style="overflow: hidden;">{{printtprescriptionform.recommendation}}</h2>
+											</div>
+											
+											
+										</div>
+										<br><br>
+										<div>
+											<h2><strong class="pull-left">PHYSICIAN: {{printtprescriptionform.firstname}}  {{printtprescriptionform.middlename}}  {{printtprescriptionform.lastname}}  </strong><br><strong class="pull-left">LICENSE NO:</strong></h2>
+										</div>
+							        </div>
+
+							      </div>
+							    </div>
+
+							  </div>
+							</div>
 						  <!-- Modal -->
 							<div id="diagnoseeditmodal" class="modal fade" role="dialog">
 							  <div class="modal-dialog">

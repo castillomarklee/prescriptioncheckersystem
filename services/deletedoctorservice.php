@@ -6,7 +6,7 @@
 
 	$doctorid = $admin->doctorid;
 
-	$schedquery = mysqli_query($$conn, "SELECT schedid FROM docsched WHERE doctorid='$doctorid'");
+	$schedquery = mysqli_query($conn, "SELECT schedid FROM docsched WHERE doctorid='$doctorid'");
 
 	$schedid = "";
 

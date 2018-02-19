@@ -50,27 +50,9 @@
 					<br>
 						<a href="./services/patientprint.php"><h2 style="font-family: Monotype Corsiva; color: white;">Patient List</h2></a>
 						<a href="./services/appointmentlist.php"><h2 style="font-family: Monotype Corsiva; color: white;">Appointment List</h2></a>
-						<a href=""><h2 style="font-family: Monotype Corsiva; color: white;" data-toggle="modal" data-target="#presciprtionmodal" ng-click="userinfomodal()">Presciption List</h2></a>
 						<a href="./services/medprint.php"><h2 style="font-family: Monotype Corsiva; color: white;">Medicine List</h2></a>
-						<a href=""><h2 style="font-family: Monotype Corsiva; color: white;">Disease distribution list</h2></a>
-
-<input type="text" class="form-control" placeholder="Search" ng-model="filteruser">
-      	<ul uib-pagination total-items="userinfoform.length" ng-model="currentPage" ng-change="pageSize"></ul><br>
-        <table class="table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Patient</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat="sd in userinfoform | startFrom:(currentPage - 1) * pageSize | limitTo:pageSize | filter: filteruser">
-      	<td>{{sd.userid}}</td>
-        <td>{{sd.firstname}} {{sd.middlename}} {{sd.lastname}}</td>
-        <td><button class="btn btn-primary btn-sm" ng-click="printprescription(sd.ususerid)">Print</button></td>
-      </tr>
-    </tbody>
-  </table>
+						<a href="./services/printdesease.php"><h2 style="font-family: Monotype Corsiva; color: white;">Disease distribution list</h2></a>
+   
 <!-- Modal -->
 <div id="presciprtionmodal" class="modal fade" role="dialog">
   <div class="modal-dialog">

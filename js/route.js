@@ -1361,6 +1361,18 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 			}
 		});
 
+		$scope.printtprescriptionform = {};
+
+		$scope.printprescriptionmodal = function(diagnoseid) {
+			$http({
+			method: 'POST',
+			url: './services/prescriptionprintservice.php',
+			data: {'diagnosis': diagnoseid}
+			}).then(function(response) {
+				$scope.printtprescriptionform = response.data[0];
+			});
+		}
+
 		$scope.logout = function() {
 			$http({
 			method: 'GET',
@@ -1609,6 +1621,10 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 			});
 		}
 
+		$('#buttonprint').click(function(events) {
+			$('.print').wordExport();
+		});
+
 		$scope.diagnoseeditclose = function() {
 			$scope.diagnoseeditform = {};
 		}
@@ -1693,9 +1709,17 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 		}
 
 		$scope.printprescription = function(userid) {
-			$http.post("./services/medprint.php", {'id': userid}).then(function(response) {
+			$http({
+		        method: 'POST',
+		        url: './services/prescriptionprint.php',
+		        data: {
+		            'id': userid
+		        },
+		        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 
-			});
+		    }).then(function(response) {
+
+		    });
 		}
 
 		$scope.userinfomodal();

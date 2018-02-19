@@ -2,14 +2,14 @@
 
 	include '../connection/connect.php';
 
-	// $worker = json_decode(file_get_contents("php://input"));
+	$worker = json_decode(file_get_contents("php://input"));
 
-	$id = $_GET['userid'];
+	$id = $worker->id;
 
 	$query = mysqli_query($conn, "SELECT q.firstname AS ufname, q.middlename AS umname, q.lastname AS ulname, q.gender, q.address, w.recommendation, e.firstname AS dfname, e.middlename AS dmname, e.lastname AS dlname  FROM user q, diagnose w, doctor e, docsched r, appointment t WHERE t.userid = q.userid AND e.doctorid=r.doctorid AND r.schedid=t.schedid AND q.userid='$id'");
 
-	header("Content-type: application/vnd.ms-word");
-	header("Content-Disposition: attachment;Filename=prescription_list.doc");
+	// header("Content-type: application/vnd.ms-word");
+	// header("Content-Disposition: attachment;Filename=prescription_list.doc");
 
 	echo "<html>";
 	echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=Windows-1252\">";
