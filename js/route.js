@@ -84,6 +84,11 @@ var application = angular.module('App', ['ui.router', 'ui.bootstrap']);
 	            url: '/doctorsetting',
 	            templateUrl: './views/doctorsetting.html',
 	            controller: 'doctorsettingcontroller'
+	        })
+	        .state('adminvitalsign', {
+	            url: '/adminvitalsign',
+	            templateUrl: './views/adminvitalsignpage.html',
+	            controller: 'adminvitalsigncontroller'
 	        });
 
     }
@@ -467,6 +472,7 @@ application.controller('adminworkerservicecontroller', ['$scope', '$http', '$loc
 				} else {
 					console.log(response);
 					$scope.registerworkerformmessage = "Registration successful";
+					location.reload();
 					$scope.alertclass = "alert-success";
 				}
 			});
@@ -2368,3 +2374,58 @@ application.service('fileUpload', ['$http', function ($http) {
          });
      }
  }]);
+
+application.controller('adminvitalsigncontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
+
+		$scope.pageSize = 10;
+		$scope.currentPage = 1;
+
+		$(document).ready(function() {
+				$(".loading").fadeOut("slow");
+		});
+		
+		$http({
+			method: 'GET',
+			url: './services/adminchecksessionservice.php'
+		}).then(function(response) {
+			console.log(response);
+			if(response.data.adminsession == true) {
+				$location.path("/adminvitalsign");
+			} else {
+				$location.path("/admin");
+			}
+		});
+
+		$scope.logout = function() {
+			$http({
+				method: 'GET',
+				url: './services/logoutservice.php'
+			}).then(function(response) {
+				$location.path('/admin');
+			});
+		}
+
+		$scope.vitalsigntableform = [];
+
+		$scope.vitalsigntable = function() {
+			$http({
+				method: 'GET',
+				url: './services/adminvitalsigntableservice.php'
+			}).then(function(response) {
+				$scope.vitalsigntableform = response.data;
+			});
+		}
+
+		$scope.deletevitalsign = function(id) {
+			$http({
+				method: 'POST',
+				url: './services/adminvitalsigndeleteservice.php',
+				data: {'id': id}
+			}).then(function(response) {
+				location.reload();
+			});
+		}
+
+		$scope.vitalsigntable();
+
+	}]);		

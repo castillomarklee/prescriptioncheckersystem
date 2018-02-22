@@ -32,7 +32,7 @@
 			$passwordlength = true;
 		} else {
 			$id = "TSWORK-" . rand(1, 10) . "-" . rand(1, 500) . "-" . date("m-d-Y");
-			$query = mysqli_query($conn, "INSERT INTO hospworker VALUES('$id', '$firstname', '$middlename', 'lastname', '$age', '$gender', '$address', '$nationality', '$position', '$username', '$password')");
+			$query = mysqli_query($conn, "INSERT INTO hospworker VALUES('$id', '$firstname', '$middlename', '$lastname', '$age', '$gender', '$address', '$nationality', '$position', '$username', '$password')");
 		}
 	}
 
