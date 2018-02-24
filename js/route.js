@@ -614,7 +614,6 @@ application.controller('adminusercontroller', ['$scope', '$http', '$location', f
 					$scope.registeruserformmessage = "Password must be more than 5 characters";
 				} else {
 					location.reload();
-					alert("Registration Successful");
 				}
 			});
 		}
