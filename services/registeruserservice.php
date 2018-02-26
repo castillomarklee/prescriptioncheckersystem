@@ -33,7 +33,7 @@
 		} else {
 			$id = "ts-" . rand(1, 10) . "-user-" . rand(1, 1000);
 			$date = date("m-d-Y");
-			$query = mysqli_query($conn, "INSERT into user VALUES('$id', '$firstname', '$middlename', '$lastname', '$age', '$gender', '$nationality', 'address', '$username', '$password', '$date')");
+			$query = mysqli_query($conn, "INSERT into user VALUES('$id', '$firstname', '$middlename', '$lastname', '$age', '$gender', '$nationality', '$address', '$username', '$password', '$date')");
 			if($query) {
 				$querysuccess = false;
 			} else {

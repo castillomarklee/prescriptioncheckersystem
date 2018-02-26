@@ -2293,7 +2293,6 @@ application.controller('doctorsettingcontroller', ['$scope', '$http', '$location
 	        var uploadUrl = "./services/savephoto.php";
 	        var text = $scope.name;
 	        fileUpload.uploadFileToUrl(file, uploadUrl);
-	        
 	    }
 
 	    $scope.photoform = {};
