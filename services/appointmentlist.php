@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	include '../connection/connect.php';
 
@@ -13,11 +13,27 @@
 	echo "<h1 style='text-align: center;'> Tomboc Salayog Hospital</h1><br><br><br><br>";
 	echo "<h3>Appointment List:</h3><br>";
 	while ($row = mysqli_fetch_assoc($query)) {
-		echo "<h5>ID: " . $row['appointmentid']. "</h5>";
-		echo "<h5>Date: " . $row['appointmentdate']. "</h5>";
-		echo "<h5>Status: " . $row['status'] . "</h5>";
-		echo "<h5>Patient: " . $row['uf'] . " " . $row['um'] . " " . $row['ul'] . "</h5>";
-		echo "<h5>Doctor: " . $row['df'] . " " . $row['dm'] . " " . $row['dl'] . "</h5><br>";
+		echo "<table>";
+		echo "<thead>";
+		echo "<th>ID</th>";
+		echo "<th>Date</th>";
+		echo "<th>Status</th>";
+		echo "<th>Patient</th>";
+		echo "<th>Doctor</th>";
+		echo "</thead>";
+		echo "<tbody>";
+		echo "<td>" . $row['appointmentid']. "</td>";
+		echo "<td>" . $row['appointmentdate']. "</td>";
+		echo "<td>" . $row['status']. "</td>";
+		echo "<td>" . $row['uf'] . " " . $row['um'] . " " . $row['ul'] . "</td>";
+		echo "<td>" . $row['df'] . " " . $row['dm'] . " " . $row['dl'] . "</td>";
+		echo "</tbody>";
+		echo "</table>";
+		// echo "<h5>ID: " . $row['appointmentid']. "</h5>";
+		// echo "<h5>Date: " . $row['appointmentdate']. "</h5>";
+		// echo "<h5>Status: " . $row['status'] . "</h5>";
+		// echo "<h5>Patient: " . $row['uf'] . " " . $row['um'] . " " . $row['ul'] . "</h5>";
+		// echo "<h5>Doctor: " . $row['df'] . " " . $row['dm'] . " " . $row['dl'] . "</h5><br>";
 	}
 	echo "</body>";
 	echo "</html>";

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	include '../connection/connect.php';
 
@@ -18,7 +18,18 @@
 	</div><br><br><br><br><br>";
 	echo "<h2><strong>Deseases:</strong></h2>";
 	while ($row = mysqli_fetch_assoc($query)) {
-		echo "<h3 style='padding-bottom: 0px;'>" . $row['category'] ."</h3>";
+		echo "<table>";
+		echo "<thead>";
+		echo "<th>Medicine</th>";
+		echo "<th>Desease</th>";
+		echo "</thead>";
+		echo "<tbody>";
+		echo "<td>" . $row['medname'] . "</td>";
+		echo "<td>" . $row['category']. "</td>";
+
+		echo "</tbody>";
+		echo "</table>";
+		// echo "<h3 style='padding-bottom: 0px;'>" . $row['category'] ."</h3>";
 	}
 	echo "</body>";
 	echo "</html>";

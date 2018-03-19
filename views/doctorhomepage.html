@@ -2,11 +2,11 @@
 	<div>
 
 		<!-- banner -->
-	<div id="home" class="w3ls-banner"> 
+	<div id="home" class="w3ls-banner">
 		<!-- header -->
-		<div class="header-w3layouts"> 
+		<div class="header-w3layouts">
 			<!-- Navigation -->
-			<nav class="navbar navbar-default navbar-fixed-top"> 
+			<nav class="navbar navbar-default navbar-fixed-top">
 				<div class="container">
 					<div class="navbar-header page-scroll">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -16,7 +16,7 @@
 							<span class="icon-bar"></span>
 						</button>
 						<h1><a class="navbar-brand" href="#!">Tomboc-Salayog Hospital</a></h1>
-					</div> 
+					</div>
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse navbar-ex1-collapse">
 						<ul class="nav navbar-nav navbar-right cl-effect-15">
@@ -29,8 +29,8 @@
 					<!-- /.navbar-collapse -->
 				</div>
 				<!-- /.container -->
-			</nav>  
-		</div>	
+			</nav>
+		</div>
 		<div class="loading">Loading&#8230;</div>
 
 		<div id="doctorwallpaper" style="height: {{resizescreen}}">
@@ -60,7 +60,7 @@
 					    	<input type="text" class="form-control" ng-model="filterDiagnosis" placeholder="Search ID, escription, status, date, time, or patient"><br>
 					    	<ul uib-pagination total-items="patientschedarray.length" ng-model="currentPagediagnosis" ng-change="pageSizediagnosis"></ul>
 					    </div>
-					    
+
 					    <br>
 					      <table class="table">
 						    <thead>
@@ -139,7 +139,7 @@
 							      <div class="modal-body">
 							      	<form method="POST" ng-submit="savesched()">
 							      		 <textarea class="form-control" ng-model="schedform.desc" placeholder="Description"></textarea><br>
-							      		
+
 							      		 	<!-- <p class="input-group">
 									          <input type="text" class="form-control" uib-datepicker-popup="MM-dd-yyyy" ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
 									          <span class="input-group-btn">
@@ -147,11 +147,11 @@
 									          </span>
 									        </p>
 									        <h1>{{dt}}</h1> -->
-							      	
-							      		 
+
+
 							        <input class="datepicker form-control" datepicker-popup="MM-dd-yyyy" ng-model="schedform.sched" placeholder="Date"><br>
-							        
-							         
+
+
 							         <div class="row">
 							         	<div class="col-xs-4">
 							         		<h2 style="font-family: Monotype Corsiva; color: black;">From:</h2>
@@ -164,14 +164,14 @@
 										    <div class="input-group bootstrap-timepicker timepicker">
 										        <input id="timepicker2" ng-model="schedform.ttime" class="form-control input-small" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
 										    </div>
-							         	</div>  
+							         	</div>
 							         </div><br>
-							          
+
 
 							        <button class="btn btn-primary btn-md center-block" type="submit">Save</button><br>
 							        <strong class="alert alert-success">{{schedformmessage}}</strong>
 							      	</form>
-							       
+
 							      <div class="modal-footer">
 							        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="modalclose()">Close</button>
 							      </div>
@@ -184,7 +184,7 @@
 						  <div class="col-xs-4">
 						  	<h2 style="font-family: Monotype Corsiva; margin-right: 5px;">Filter</h2><input type="text" class="form-control center-block" ng-model="filterdate"><ul uib-pagination total-items="schedtableform.length" ng-model="currentPage" ng-change="pageSize"></ul>
 						  </div>
-						  		
+
 						  		<table class="table">
 								    <thead>
 								      <tr>
@@ -236,7 +236,7 @@
 												    <div class="input-group bootstrap-timepicker timepicker">
 												        <input id="timepicker4" ng-model="schedupdateform[0].totimeedit" class="form-control input-small" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
 												    </div>
-									         	</div>  
+									         	</div>
 									         </div><br>
 
 							        		<button class="btn btn-primary btn-md center-block" ng-click="schedupdate()">Save</button>
@@ -249,7 +249,7 @@
 									  </div>
 									</div>
 					  </div>
-					  
+
 					</div>
 					<div id="diagnosis" class="tab-pane fade">
 						<br>
@@ -298,12 +298,12 @@
 							        	 <div style="text-align: center;">
 							        	<!-- <div class="col-xs-4">
 							        	<img src="./images/logo.png" height="190" width="195">
-							        	</div> -->	
+							        	</div> -->
 							        	<div >
 							        		<h2 style="padding-bottom: 0px; padding-top: 30px; padding-left: 8px;"><strong>TOMBOC SALAYOG HOSPITAL</strong></h2>
 											<h3 style="padding-top: 0px;">San Emmauel Tacurong City Sultan Kudarat 9800</h3>
 											<h2 style="padding-top: 0px;"><strong>CONTACT NO: 200-5760</strong></h2>
-							        	</div>	
+							        	</div>
 									</div>
 									<br><br><br>
 										<div style=" text-align: center;">
@@ -318,8 +318,8 @@
 											<div class="col-xs-7">
 												<h2 style="overflow: hidden;">{{printtprescriptionform.recommendation}}</h2>
 											</div>
-											
-											
+
+
 										</div>
 										<br><br>
 										<div>
@@ -389,7 +389,7 @@
 
 					<h2 style="font-family: Monotype Corsiva;">Dashboard</h2>
 
-				</div>			
+				</div>
 			</div>
 </div>
 </div>
@@ -406,7 +406,7 @@
 <script>
 $(document).ready(function () {
 $('#horizontalTab').easyResponsiveTabs({
-type: 'default', //Types: default, vertical, accordion           
+type: 'default', //Types: default, vertical, accordion
 width: 'auto', //auto or any width like 600px
 fit: true,   // 100% fit in a container
 closed: 'accordion', // Start closed if in accordion view
@@ -449,7 +449,7 @@ fit: true
 									  $('.events').append("<li>after event fired.</li>");
 									}
 								  });
-							
+
 								});
 							 </script>
 
@@ -463,7 +463,7 @@ fit: true
 										});
 									</script>
 							<!--/End-date-piker-->
-							
+
 <!-- js for smooth scrollings -->
 	<script src="js/SmoothScroll.min.js"></script>
 <!-- js for smooth scrollings -->
@@ -476,25 +476,25 @@ fit: true
 				visibleItems: 3,
 				animationSpeed: 1000,
 				autoPlay: false,
-				autoPlaySpeed: 3000,    		
+				autoPlaySpeed: 3000,
 				pauseOnHover: true,
 				enableResponsiveBreakpoints: true,
-				responsiveBreakpoints: { 
-					portrait: { 
+				responsiveBreakpoints: {
+					portrait: {
 						changePoint:480,
 						visibleItems: 1
-					}, 
-					landscape: { 
+					},
+					landscape: {
 						changePoint:640,
 						visibleItems:2
 					},
-					tablet: { 
+					tablet: {
 						changePoint:768,
 						visibleItems: 3
 					}
 				}
 			});
-			
+
 		});
 	</script>
 <!-- //flexisel -->
@@ -511,20 +511,20 @@ fit: true
 				containerID: 'toTop', // fading element id
 				containerHoverID: 'toTopHover', // fading element hover id
 				scrollSpeed: 1200,
-				easingType: 'linear' 
-				};	
+				easingType: 'linear'
+				};
 			*/
-								
+
 			$().UItoTop({ easingType: 'easeOutQuart' });
-								
+
 			});
 	</script>
 <!-- //here ends scrolling icon -->
 
 
-<!-- Scrolling Nav JavaScript --> 
-    <script src="js/scrolling-nav.js"></script>  
-<!-- //fixed-scroll-nav-js --> 
+<!-- Scrolling Nav JavaScript -->
+    <script src="js/scrolling-nav.js"></script>
+<!-- //fixed-scroll-nav-js -->
 
 
 </div>

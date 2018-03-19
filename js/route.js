@@ -4,7 +4,7 @@ var application = angular.module('App', ['ui.router', 'ui.bootstrap']);
 
 	application.config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
-    	 
+
         // For unmatched routes
         $urlRouterProvider.otherwise('/');
 
@@ -144,7 +144,7 @@ var application = angular.module('App', ['ui.router', 'ui.bootstrap']);
 							$scope.alerthide = false;
 						}
 					});
-				
+
 
 			}
 
@@ -203,14 +203,14 @@ application.controller('adminlogincontroller', ['$scope', '$http', '$location', 
 				console.log(response);
 			});
 		}
-			
+
 	}]);
 
 application.controller('adminhomecontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
 		});
-		
+
 		$http({
 			method: 'GET',
 			url: './services/adminchecksessionservice.php'
@@ -231,11 +231,11 @@ application.controller('adminhomecontroller', ['$scope', '$http', '$location', f
 				$location.path('/admin');
 			});
 		}
-			
+
 	}]);
-		
+
 application.controller('admindoctorservicecontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
-	
+
 
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
@@ -270,10 +270,10 @@ application.controller('admindoctorservicecontroller', ['$scope', '$http', '$loc
 		var screensize = $(".well").outerHeight() + 900 + "px";
 
 		$scope.collapsebuttonadd = function() {
-			
+
 			if($scope.resizescreen != screensize) {
 				$scope.resizescreen = screensize;
-				
+
 			} else {
 				$scope.resizescreen = $(".well").outerHeight() + 900 + "px";
 			}
@@ -325,7 +325,7 @@ application.controller('admindoctorservicecontroller', ['$scope', '$http', '$loc
 			});
 		}
 
-		
+
 
 		$scope.doctortable = function() {
 			$http({
@@ -363,7 +363,7 @@ application.controller('admindoctorservicecontroller', ['$scope', '$http', '$loc
 				'gender': gender,
 				'address': address,
 				'doctortype': doctortype,
-				'username': username,				
+				'username': username,
 				'password': password
 			});
 			$scope.upadateformlabel = $scope.updatemodalform[0];
@@ -397,7 +397,7 @@ application.controller('admindoctorservicecontroller', ['$scope', '$http', '$loc
 				$http.post("./services/deletedoctorservice.php", {'doctorid': doctorid}).then(function(response) {
 					location.reload();
 				});
-			}	
+			}
 
 		$scope.doctortable();
 
@@ -440,10 +440,10 @@ application.controller('adminworkerservicecontroller', ['$scope', '$http', '$loc
 		var screensize = $(".well").outerHeight() + 900 + "px";
 
 		$scope.collapsebuttonadd = function() {
-			
+
 			if($scope.resizescreen != screensize) {
 				$scope.resizescreen = screensize;
-				
+
 			} else {
 				$scope.resizescreen = $(".well").outerHeight() + 900 + "px";
 			}
@@ -545,7 +545,7 @@ application.controller('adminusercontroller', ['$scope', '$http', '$location', f
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
 		});
-		
+
 		$http({
 			method: 'GET',
 			url: './services/adminchecksessionservice.php'
@@ -571,10 +571,10 @@ application.controller('adminusercontroller', ['$scope', '$http', '$location', f
 		var screensize = $(".well").outerHeight() + 900 + "px";
 
 		$scope.collapsebuttonadd = function() {
-			
+
 			if($scope.resizescreen != screensize) {
 				$scope.resizescreen = screensize;
-				
+
 			} else {
 				$scope.resizescreen = $(".well").outerHeight() + 900 + "px";
 			}
@@ -641,7 +641,7 @@ application.controller('adminusercontroller', ['$scope', '$http', '$location', f
 				'password': password
 			});
 			$scope.user = $scope.updateuserform[0];
-		} 
+		}
 
 		$scope.closemodal = function() {
 			$scope.updateuserform = [];
@@ -650,14 +650,14 @@ application.controller('adminusercontroller', ['$scope', '$http', '$location', f
 
 		$scope.usertable();
 
-			
+
 	}]);
 
 application.controller('workercontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
 		});
-		
+
 		// $http({
 		// 	method: 'GET',
 		// 	url: './services/adminchecksessionservice.php'
@@ -733,7 +733,7 @@ application.controller('workerhomecontroller', ['$scope', '$http', '$location', 
 		$scope.showselected = true;
 		var existinguserbutton = false;
 		var walkinuserbutton = false;
-		
+
 		$http({
 			method: 'GET',
 			url: './services/workerChecksession.php'
@@ -772,7 +772,7 @@ application.controller('workerhomecontroller', ['$scope', '$http', '$location', 
 				$http({
 				method: 'POST',
 				url: './services/vitalsignsaveservice.php',
-				data: $scope.vitalsignform 
+				data: $scope.vitalsignform
 				}).then(function(response) {
 					console.log(response);
 					$scope.tableform.push({
@@ -807,12 +807,12 @@ application.controller('workerhomecontroller', ['$scope', '$http', '$location', 
 				$http({
 				method: 'POST',
 				url: './services/vitalsignsaveservice.php',
-				data: $scope.vitalsignform 
+				data: $scope.vitalsignform
 				}).then(function(response) {
 					location.reload();
 				});
 			}
-			
+
 		}
 
 		$scope.closewalkinpatientmodal = function() {
@@ -1071,8 +1071,8 @@ application.controller('workerhomecontroller', ['$scope', '$http', '$location', 
 		$scope.medtable();
 		$scope.userdrugallerytable();
 
-	}]);		
-		
+	}]);
+
 application.controller('usercontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
 
 		$(document).ready(function() {
@@ -1224,7 +1224,7 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 				url: './services/saveselectedschedservice.php',
 				data: {'id': $scope.id, 'desc': $scope.desc, 'time': $scope.time, 'doctorid': $scope.dociduser}
 			}).then(function(response) {
-					location.reload();	
+					location.reload();
 			});
 		}
 
@@ -1301,7 +1301,7 @@ application.controller('usercontroller', ['$scope', '$http', '$location', functi
 		$scope.medtable();
 
 	}]);
-		
+
 
 application.controller('doctorlogincontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
 		$(document).ready(function() {
@@ -1326,7 +1326,7 @@ application.controller('doctorlogincontroller', ['$scope', '$http', '$location',
 		});
 		}
 
-	}]);	
+	}]);
 
 application.controller('doctorhomecontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
 		$scope.pageSize = 10;
@@ -1391,10 +1391,10 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 		var screensize = $(".well").outerHeight() + 300 + "px";
 
 		$scope.collapsebuttonadd = function() {
-			
+
 			if($scope.resizescreen != screensize) {
 				$scope.resizescreen = screensize;
-				
+
 			} else {
 				$scope.resizescreen = $(".well").outerHeight() + 900 + "px";
 			}
@@ -1432,7 +1432,7 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 			});
 		}
 
-		
+
 
 		$scope.schedtable = function() {
 			$http({
@@ -1579,7 +1579,7 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 			// 	}
 			// }
 
-			
+
 		}
 
 		$scope.diagnosetableform = [];
@@ -1635,7 +1635,7 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 		}
 
 		$scope.schedtable();
-		$scope.vitalsigntable(); 
+		$scope.vitalsigntable();
 		$scope.expiresched();
 		$scope.patientsched();
 		$scope.diagnosetable();
@@ -1678,7 +1678,7 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 		$scope.showselected = true;
 		var existinguserbutton = false;
 		var walkinuserbutton = false;
-		
+
 		$http({
 			method: 'GET',
 			url: './services/workerChecksession.php'
@@ -1731,7 +1731,7 @@ application.controller('doctorhomecontroller', ['$scope', '$http', '$location', 
 
 		$scope.resizescreen = $(".well").outerHeight() + 700 + "px";
 		var screensize = $(".well").outerHeight() + 900 + "px";
-	}]);		
+	}]);
 
 
 application.controller('adminappointmentcontroller', ['$scope', '$http', '$location', function($scope, $http, $location) {
@@ -1741,7 +1741,7 @@ application.controller('adminappointmentcontroller', ['$scope', '$http', '$locat
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
 		});
-		
+
 		$http({
 			method: 'GET',
 			url: './services/adminchecksessionservice.php'
@@ -1767,10 +1767,10 @@ application.controller('adminappointmentcontroller', ['$scope', '$http', '$locat
 		var screensize = $(".well").outerHeight() + 900 + "px";
 
 		$scope.collapsebuttonadd = function() {
-			
+
 			if($scope.resizescreen != screensize) {
 				$scope.resizescreen = screensize;
-				
+
 			} else {
 				$scope.resizescreen = $(".well").outerHeight() + 900 + "px";
 			}
@@ -1832,7 +1832,7 @@ application.controller('adminappointmentcontroller', ['$scope', '$http', '$locat
 				'password': password
 			});
 			$scope.user = $scope.updateuserform[0];
-		} 
+		}
 
 		$scope.closemodal = function() {
 			$scope.updateuserform = [];
@@ -1851,7 +1851,7 @@ application.controller('adminappointmentcontroller', ['$scope', '$http', '$locat
 
 		$scope.usertable();
 
-			
+
 	}]);
 
 
@@ -1862,7 +1862,7 @@ application.controller('admindiagnosiscontroller', ['$scope', '$http', '$locatio
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
 		});
-		
+
 		$http({
 			method: 'GET',
 			url: './services/adminchecksessionservice.php'
@@ -1888,10 +1888,10 @@ application.controller('admindiagnosiscontroller', ['$scope', '$http', '$locatio
 		var screensize = $(".well").outerHeight() + 900 + "px";
 
 		$scope.collapsebuttonadd = function() {
-			
+
 			if($scope.resizescreen != screensize) {
 				$scope.resizescreen = screensize;
-				
+
 			} else {
 				$scope.resizescreen = $(".well").outerHeight() + 900 + "px";
 			}
@@ -1955,7 +1955,7 @@ application.controller('admindiagnosiscontroller', ['$scope', '$http', '$locatio
 				'password': password
 			});
 			$scope.user = $scope.updateuserform[0];
-		} 
+		}
 
 		$scope.closemodal = function() {
 			$scope.updateuserform = [];
@@ -1974,7 +1974,7 @@ application.controller('admindiagnosiscontroller', ['$scope', '$http', '$locatio
 
 		$scope.usertable();
 
-			
+
 	}]);
 
 
@@ -2029,10 +2029,10 @@ application.controller('doctorsettingcontroller', ['$scope', '$http', '$location
 		var screensize = $(".well").outerHeight() + 300 + "px";
 
 		$scope.collapsebuttonadd = function() {
-			
+
 			if($scope.resizescreen != screensize) {
 				$scope.resizescreen = screensize;
-				
+
 			} else {
 				$scope.resizescreen = $(".well").outerHeight() + 900 + "px";
 			}
@@ -2069,7 +2069,7 @@ application.controller('doctorsettingcontroller', ['$scope', '$http', '$location
 		// 	});
 		// }
 
-		
+
 
 		// $scope.schedtable = function() {
 		// 	$http({
@@ -2209,7 +2209,7 @@ application.controller('doctorsettingcontroller', ['$scope', '$http', '$location
 		// 		}
 		// 	}
 
-			
+
 		// }
 
 		// $scope.diagnosetableform = [];
@@ -2321,7 +2321,7 @@ application.controller('doctorsettingcontroller', ['$scope', '$http', '$location
 	    }
 
 		// $scope.schedtable();
-		// $scope.vitalsigntable(); 
+		// $scope.vitalsigntable();
 		// $scope.expiresched();
 		// $scope.patientsched();
 		// $scope.diagnosetable();
@@ -2381,7 +2381,7 @@ application.controller('adminvitalsigncontroller', ['$scope', '$http', '$locatio
 		$(document).ready(function() {
 				$(".loading").fadeOut("slow");
 		});
-		
+
 		$http({
 			method: 'GET',
 			url: './services/adminchecksessionservice.php'
@@ -2426,4 +2426,4 @@ application.controller('adminvitalsigncontroller', ['$scope', '$http', '$locatio
 
 		$scope.vitalsigntable();
 
-	}]);		
+	}]);
