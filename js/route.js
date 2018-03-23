@@ -648,6 +648,18 @@ application.controller('adminusercontroller', ['$scope', '$http', '$location', f
 			$scope.user = [];
 		}
 
+		$scope.adminuserprescription = [];
+
+		$scope.viewprescription = function(userid) {
+			$http({
+				method: 'POST',
+				url: './services/viewprescriptionadminservice.php',
+				data: {'userid': userid}
+			}).then(function(response) {
+				$scope.adminuserprescription = response.data;
+			});
+		}
+
 		$scope.usertable();
 
 

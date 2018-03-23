@@ -2,11 +2,11 @@
 	<div>
 
 		<!-- banner -->
-	<div id="home" class="w3ls-banner"> 
+	<div id="home" class="w3ls-banner">
 		<!-- header -->
-		<div class="header-w3layouts"> 
+		<div class="header-w3layouts">
 			<!-- Navigation -->
-			<nav class="navbar navbar-default navbar-fixed-top"> 
+			<nav class="navbar navbar-default navbar-fixed-top">
 				<div class="container">
 					<div class="navbar-header page-scroll">
 						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -16,7 +16,7 @@
 							<span class="icon-bar"></span>
 						</button>
 						<h1><a class="navbar-brand" href="#!">Tomboc-Salayog Hospital</a></h1>
-					</div> 
+					</div>
 					<!-- Collect the nav links, forms, and other content for toggling -->
 					<div class="collapse navbar-collapse navbar-ex1-collapse">
 						<ul class="nav navbar-nav navbar-right cl-effect-15">
@@ -37,16 +37,16 @@
 						      </li>
 							<li><a class="page-scroll scroll" data-toggle="modal" data-target="#registerModal" style="cursor: pointer;">Settings</a></li>
 							<li><a ng-click="logout()" sxtyle="cursor: pointer;">Log out</a></li>
-							
+
 						</ul>
 					</div>
 					<!-- /.navbar-collapse -->
 				</div>
 				<!-- /.container -->
-			</nav>  
-		</div>	
+			</nav>
+		</div>
 		<div class="loading">Loading&#8230;</div>
-	
+
 		<div id="adminhomepagewallpaper" style="height: {{resizescreen}}">
 			<div style="width: 95%; margin-left: 30px; margin-top: 100px;">
 				<div class="well" style="background-color: rgba(0, 0, 0, 0.6);">
@@ -57,7 +57,7 @@
 								<input type="text" class="form-control" ng-model="registeruserform.firstname" placeholder="Firstname"><br>
 								<input type="text" class="form-control" ng-model="registeruserform.middlename" placeholder="Middlename"><br>
 								<input type="text" class="form-control" ng-model="registeruserform.lastname" placeholder="Lastname"><br>
-								<input type="text" class="form-control" onkeydown='return (event.which >= 48 && event.which <= 57) 
+								<input type="text" class="form-control" onkeydown='return (event.which >= 48 && event.which <= 57)
    || event.which == 8 || event.which == 46' ng-model="registeruserform.age" placeholder="Age"><br>
 								<select class="form-control" ng-model="registeruserform.gender">
 								    <option>Male</option>
@@ -103,9 +103,35 @@
 						        <td>{{i.password}}</td>
 						        <td><button type="button" class="btn btn-info btn-md" ng-click="deleteuseraccount(i.userid)">Delete</button></td>
 						        <td><button type="button" class="btn btn-warning btn-md" data-toggle="modal" data-target="#updatedoctor" ng-click="updateusermodal(i.userid, i.firstname, i.middlename, i.lastname, i.age, i.gender, i.address, i.nationality, i.username, i.password)">Update</button></td>
+						        <td><button type="button" class="btn btn-primary btn-md" ng-click="viewprescription(i.userid)" data-toggle="#diagnoseModal">Show </button></td>
 						      </tr>
 						  </table>
 						  <ul uib-pagination total-items="usertableform.length" ng-model="currentPage" ng-change="pageSize" style="margin-left: 500px;"></ul>
+
+
+<!-- Modal -->
+<div id="diagnoseModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Patient Diagnosis</h4>
+      </div>
+      <div class="modal-body">
+      <h4>Description: adminuserprescription[0].diagnosedescription</h4><br>
+      <h4>Complain: adminuserprescription[0].patientcomplain</h4><br>
+      <h4>Diagnosis: adminuserprescription[0].diagnosis</h4><br>
+      <h4>Recommendation: adminuserprescription[0].recommendation</h4><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
 						  <div id="updatedoctor" class="modal fade" role="dialog">
 							  <div class="modal-dialog modal-md">
 
@@ -121,7 +147,7 @@
 							        	<input type="text" class="form-control" ng-model="user.firstname" placeholder="Firstname"><br>
 							        	<input type="text" class="form-control" ng-model="user.middlename" placeholder="Middlename"><br>
 							        	<input type="text" class="form-control" ng-model="user.lastname" placeholder="Lastname"><br>
-							        	<input type="text" class="form-control" ng-model="user.age" onkeydown='return (event.which >= 48 && event.which <= 57) 
+							        	<input type="text" class="form-control" ng-model="user.age" onkeydown='return (event.which >= 48 && event.which <= 57)
    || event.which == 8 || event.which == 46' placeholder="Age"><br>
 							        	<select class="form-control" ng-model="user.genderq">
 										    <option>Male</option>
@@ -144,7 +170,7 @@
 </div>
 				</div>
 			</div>
-			
+
 		</div>
 
 
@@ -160,7 +186,7 @@
 <script>
 $(document).ready(function () {
 $('#horizontalTab').easyResponsiveTabs({
-type: 'default', //Types: default, vertical, accordion           
+type: 'default', //Types: default, vertical, accordion
 width: 'auto', //auto or any width like 600px
 fit: true,   // 100% fit in a container
 closed: 'accordion', // Start closed if in accordion view
@@ -203,7 +229,7 @@ fit: true
 									  $('.events').append("<li>after event fired.</li>");
 									}
 								  });
-							
+
 								});
 							 </script>
 
@@ -217,7 +243,7 @@ fit: true
 										});
 									</script>
 							<!--/End-date-piker-->
-							
+
 <!-- js for smooth scrollings -->
 	<script src="js/SmoothScroll.min.js"></script>
 <!-- js for smooth scrollings -->
@@ -230,25 +256,25 @@ fit: true
 				visibleItems: 3,
 				animationSpeed: 1000,
 				autoPlay: false,
-				autoPlaySpeed: 3000,    		
+				autoPlaySpeed: 3000,
 				pauseOnHover: true,
 				enableResponsiveBreakpoints: true,
-				responsiveBreakpoints: { 
-					portrait: { 
+				responsiveBreakpoints: {
+					portrait: {
 						changePoint:480,
 						visibleItems: 1
-					}, 
-					landscape: { 
+					},
+					landscape: {
 						changePoint:640,
 						visibleItems:2
 					},
-					tablet: { 
+					tablet: {
 						changePoint:768,
 						visibleItems: 3
 					}
 				}
 			});
-			
+
 		});
 	</script>
 <!-- //flexisel -->
@@ -265,20 +291,20 @@ fit: true
 				containerID: 'toTop', // fading element id
 				containerHoverID: 'toTopHover', // fading element hover id
 				scrollSpeed: 1200,
-				easingType: 'linear' 
+				easingType: 'linear'
 				};
 			*/
-								
+
 			$().UItoTop({ easingType: 'easeOutQuart' });
-								
+
 			});
 	</script>
 <!-- //here ends scrolling icon -->
 
 
-<!-- Scrolling Nav JavaScript --> 
-    <script src="js/scrolling-nav.js"></script>  
-<!-- //fixed-scroll-nav-js --> 
+<!-- Scrolling Nav JavaScript -->
+    <script src="js/scrolling-nav.js"></script>
+<!-- //fixed-scroll-nav-js -->
 
 
 </div>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 	include '../connection/connect.php';
 
