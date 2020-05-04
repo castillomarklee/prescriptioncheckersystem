@@ -1,0 +1,16 @@
+<div id="workerwallpaper">
+	<div class="panel panel-default" style="margin-top: 200px; width: 40%; margin-left: 400px; background-color: rgba(0, 0, 0, 0.6);">
+		<div class="panel-body" style="color: white;">	
+			<strong style="padding-left: 215px; font-size: 20px;">Welcome</strong>
+			<form method="POST" ng-submit="login()">
+				<input type="text" class="form-control" ng-model="hosploginform.username" placeholder="Username"><br>
+				<input type="password" class="form-control" ng-model="hosploginform.password" placeholder="Password"><br>
+				<button class="btn btn-primary btn-md" type="submit" style="width: 200px; margin-left: 150px;">Login</button>
+				<br>
+				<br>
+				<strong class="alert alert-danger center-block" ng-hide="alerthide">{{hosploginformmessage}}</strong>
+			</form>
+		</div>
+	</div>
+	<div class="loading">Loading&#8230;</div>
+</div>

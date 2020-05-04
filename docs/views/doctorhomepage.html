@@ -1,0 +1,531 @@
+<div>
+	<div>
+
+		<!-- banner -->
+	<div id="home" class="w3ls-banner">
+		<!-- header -->
+		<div class="header-w3layouts">
+			<!-- Navigation -->
+			<nav class="navbar navbar-default navbar-fixed-top">
+				<div class="container">
+					<div class="navbar-header page-scroll">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+							<span class="sr-only">Medical_care</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<h1><a class="navbar-brand" href="#!">Tomboc-Salayog Hospital</a></h1>
+					</div>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse navbar-ex1-collapse">
+						<ul class="nav navbar-nav navbar-right cl-effect-15">
+							<!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+							<li class="hidden"><a class="page-scroll" href="#page-top"></a>	</li>
+							<li><a class="page-scroll scroll" data-toggle="modal" href="#!doctorsetting" style="cursor: pointer;">Settings</a></li>
+							<li><a ng-click="logout()" style="cursor: pointer;">Log out</a></li>
+						</ul>
+					</div>
+					<!-- /.navbar-collapse -->
+				</div>
+				<!-- /.container -->
+			</nav>
+		</div>
+		<div class="loading">Loading&#8230;</div>
+
+		<div id="doctorwallpaper" style="height: {{resizescreen}}">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+
+			<div class="container">
+				<div class="well" style="background-color: rgba(0, 0, 0, 0.6); color: white; overflow: hidden;">
+					<h1 style="font-family: Monotype Corsiva;">Doctor</h1>
+					<br>
+					<br>
+					<ul class="nav nav-tabs">
+					  <li class="active"><a data-toggle="tab" style="cursor: pointer;" data-target="#schedule">Schedule</a></li>
+					  <li><a data-toggle="tab" style="cursor: pointer;" data-target="#diagnosis">Diagnosis</a></li>
+					  <li><a data-toggle="tab" style="cursor: pointer;" data-target="#vitalsign">Vital Sign</a></li>
+					</ul>
+
+					<div class="tab-content">
+					  <div id="schedule" class="tab-pane fade in active">
+					  	<br>
+					    <h3 style="font-family: Monotype Corsiva;">List of patient schedule</h3><br><br>
+					    <div class="col-xs-5">
+					    	<input type="text" class="form-control" ng-model="filterDiagnosis" placeholder="Search ID, escription, status, date, time, or patient"><br>
+					    	<ul uib-pagination total-items="patientschedarray.length" ng-model="currentPagediagnosis" ng-change="pageSizediagnosis"></ul>
+					    </div>
+
+					    <br>
+					      <table class="table">
+						    <thead>
+						      <tr>
+						        <th>ID</th>
+						        <th>Description</th>
+						        <th>Status</th>
+						        <th>Date</th>
+						        <th>Time</th>
+						        <th>Patient</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr ng-repeat="p in patientschedarray | startFrom:(currentPagediagnosis - 1) * pageSizediagnosis | limitTo:pageSizediagnosis | filter: filterDiagnosis">
+						        <td>{{p.appointmentid}}</td>
+						        <td>{{p.appointmentdescription}}</td>
+						        <td>{{p.status}}</td>
+						        <td>{{p.schedtime}}</td>``
+						        <td>{{p.fromtime}} - {{p.totime}}</td>
+						        <td>{{p.firstname}} {{p.middlename}} {{p.lastname}}</td>
+						        <td><button class="btn btn-warning btn-md" ng-click="diagnosemodal(p.appointmentid, p.userid)" data-toggle="modal" data-target="#diagnoseModal">Diagnosis</button></td>
+						      </tr>
+						    </tbody>
+						  </table>
+
+						  <!-- Modal -->
+							<div id="diagnoseModal" class="modal fade" role="dialog">
+							  <div class="modal-dialog modal-lg">
+
+							    <!-- Modal content-->
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <h4 class="modal-title">Diagnose</h4>
+							      </div>
+							      <div class="modal-body" style="overflow: hidden;">
+							      	<h2 class="alert alert-success"><strong>Reminders: </strong>Always check the patients drug allergies</h2>
+							      	<button class="btn btn-md btn-primary center-block" ng-click="collapseallergy()" data-toggle="collapse" data-target="#allergycheck">Check Drug Allergies</button><br><br>
+							      	<div class="collapse" id="allergycheck" style="color: black">
+							      		<input type="text" class="form-control" ng-model="allergycheck" placeholder="Filter"><br><br>
+							      		  <div ng-repeat="q in allergymodalform | filter: allergycheck">
+							      		  	<h3><strong>{{q.dname}}</strong></h3>
+							      		  	<h3 class="aler alert-success">{{alertalergy}}</h3>
+							      		  </div>
+							      	</div><br><br>
+							        	<textarea class="form-control" ng-model="diagnoseform.description" placeholder="Description"></textarea><br>
+							        	<textarea class="form-control" ng-model="diagnoseform.complaint" placeholder="Complaint"></textarea><br>
+							        	<textarea class="form-control" ng-model="diagnoseform.diagnosis" placeholder="Diagnosis"></textarea><br>
+							        	<textarea class="form-control" id="recommendationtextarea" ng-model="diagnoseform.recommendation" placeholder="Recommendation"></textarea><br>
+							        	<textarea class="form-control" ng-model="diagnoseform.allergies" placeholder="Drug Allergies"></textarea><br>
+							        	<button class="btn btn-primary btn-md center-block" ng-click="saveDiagnosemodal()" style="width: 120px;">Save</button>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" ng-click="closediagnosemodal()" data-dismiss="modal">Close</button>
+							      </div>
+							    </div>
+
+							  </div>
+							</div>
+
+						  <br>
+						  <br>
+						  <div class="doctorschedule">
+						  	<h2 style="font-family: Monotype Corsiva;">Doctor Schedule</h2><br>
+						  	<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#addprefsched" type="button">Add</button>
+
+							<!-- Modal -->
+							<div id="addprefsched" class="modal fade" role="dialog">
+							  <div class="modal-dialog">
+
+							    <!-- Modal content-->
+							    <div class="modal-content">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal" ng-click="modalclose()">&times;</button>
+							        <h4 class="modal-title">Schedule</h4>
+							      </div>
+							      <div class="modal-body">
+							      	<form method="POST" ng-submit="savesched()">
+							      		 <textarea class="form-control" ng-model="schedform.desc" placeholder="Description"></textarea><br>
+
+							      		 	<!-- <p class="input-group">
+									          <input type="text" class="form-control" uib-datepicker-popup="MM-dd-yyyy" ng-model="dt" is-open="popup2.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
+									          <span class="input-group-btn">
+									            <button type="button" class="btn btn-default"  ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+									          </span>
+									        </p>
+									        <h1>{{dt}}</h1> -->
+
+
+							        <input class="datepicker form-control" datepicker-popup="MM-dd-yyyy" ng-model="schedform.sched" placeholder="Date"><br>
+
+
+							         <div class="row">
+							         	<div class="col-xs-4">
+							         		<h2 style="font-family: Monotype Corsiva; color: black;">From:</h2>
+							         		<div class="input-group bootstrap-timepicker timepicker">
+										        <input id="timepicker1" ng-model="schedform.ftime" class="form-control input-small" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+										    </div>
+							         	</div>
+							         	<div class="col-xs-4">
+							         		<h2 style="font-family: Monotype Corsiva; color: black;">To:</h2>
+										    <div class="input-group bootstrap-timepicker timepicker">
+										        <input id="timepicker2" ng-model="schedform.ttime" class="form-control input-small" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+										    </div>
+							         	</div>
+							         </div><br>
+
+
+							        <button class="btn btn-primary btn-md center-block" type="submit">Save</button><br>
+							        <strong class="alert alert-success">{{schedformmessage}}</strong>
+							      	</form>
+
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="modalclose()">Close</button>
+							      </div>
+							    </div>
+
+							  </div>
+							</div>
+						  </div>
+						  <br><br>
+						  <div class="col-xs-4">
+						  	<h2 style="font-family: Monotype Corsiva; margin-right: 5px;">Filter</h2><input type="text" class="form-control center-block" ng-model="filterdate"><ul uib-pagination total-items="schedtableform.length" ng-model="currentPage" ng-change="pageSize"></ul>
+						  </div>
+
+						  		<table class="table">
+								    <thead>
+								      <tr>
+								        <th>ID</th>
+								        <th>Description</th>
+								        <th>Schedule</th>
+								        <th>Availability</th>
+								        <th>Time</th>
+								      </tr>
+								    </thead>
+								    <tbody>
+								      <tr ng-repeat="i in schedtableform | startFrom:(currentPage - 1) * pageSize | limitTo:pageSize | filter: filterdate">
+								        <td>{{i.schedid}}</td>
+								        <td>{{i.scheddesc}}</td>
+								        <td>{{i.schedtime}}</td>
+								        <td>{{i.availability}}</td>
+								        <td>{{i.fromtime}} - {{i.totime}}</td>
+								        <td><button class="btn btn-primary btn-md" type="button" data-toggle="modal" data-target="#updatesched" ng-click="schededitmodal(i.schedid, i.scheddesc, i.schedtime, i.fromtime, i.totime)">Edit</button></td>
+								        <td><button class="btn btn-danger btn-md" type="button" ng-click="scheddelete(i.schedid)">Delete</button></td>
+								      </tr>
+								    </tbody>
+								  </table>
+								  <!-- Modal -->
+									<div id="updatesched" class="modal fade" role="dialog">
+									  <div class="modal-dialog modal-md">
+
+									    <!-- Modal content-->
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal" ng-click="closeupdatemodalsched()">&times;</button>
+									        <h4 class="modal-title">Update</h4>
+									      </div>
+									      <div class="modal-body">
+									      	<h2 style="font-family: Monotype Corsiva; margin-right: 5px; color: black;">{{schedupdateform[0].id}}</h2>
+									        <textarea class="form-control" ng-model="schedupdateform[0].desc"></textarea>
+									        <br>
+
+							        		<input class="datepicker form-control" ng-model="schedupdateform[0].sched" data-date-format="mm/dd/yyyy" placeholder="Date"><br>
+
+							        		<div class="row">
+									         	<div class="col-xs-4">
+									         		<h2 style="font-family: Monotype Corsiva; color: black;">From:</h2>
+									         		<div class="input-group bootstrap-timepicker timepicker">
+												        <input id="timepicker3" ng-model="schedupdateform[0].fromtimeedit" class="form-control input-small" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+												    </div>
+									         	</div>
+									         	<div class="col-xs-4">
+									         		<h2 style="font-family: Monotype Corsiva; color: black;">To:</h2>
+												    <div class="input-group bootstrap-timepicker timepicker">
+												        <input id="timepicker4" ng-model="schedupdateform[0].totimeedit" class="form-control input-small" type="text"/><span class="input-group-addon"><i class="glyphicon glyphicon-time"></i></span>
+												    </div>
+									         	</div>
+									         </div><br>
+
+							        		<button class="btn btn-primary btn-md center-block" ng-click="schedupdate()">Save</button>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="closeupdatemodalsched()">Close</button>
+									      </div>
+									    </div>
+
+									  </div>
+									</div>
+					  </div>
+
+					</div>
+					<div id="diagnosis" class="tab-pane fade">
+						<br>
+						<input type="text" class="form-control" placeholder="Filter" ng-model="diagnosistable" style="width: 500px;"><br>
+						<ul uib-pagination total-items="diagnosetableform.length" ng-model="currentPagediagnosistable" ng-change="pageSizediagnosistable"></ul>
+					    <table class="table">
+						    <thead>
+						      <tr>
+						        <th>ID</th>
+						        <th>Description</th>
+						        <th>Diagnosis</th>
+						        <th>Recommendation</th>
+						        <th>Drug Allergies</th>
+						        <th>Schedule</th>
+						        <th>Patient</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr ng-repeat="d in diagnosetableform | startFrom:(currentPagediagnosistable - 1) * pageSizediagnosistable | limitTo:pageSizediagnosistable | filter: diagnosistable">
+						        <td>{{d.diagnoseid}}</td>
+						        <td>{{d.diagnosedescription}}</td>
+						        <td>{{d.diagnosis}}</td>
+						        <td>{{d.recommendation}}</td>
+						        <td>{{d.drugallergies}}</td>
+						        <td>{{d.appointmentdate}}</td>
+						        <td>{{d.firstname}} {{d.middlename}} {{d.lastname}}</td>
+						        <td><button type="button" class="btn btn-md btn-danger" ng-click="diagnosetabledelete(d.diagnoseid)">Delete</button></td>
+						        <td><button class="btn btn-md btn-info" type="button" data-toggle="modal" data-target="#diagnoseeditmodal" ng-click="diagnoseedit(d.diagnoseid, d.diagnosedescription, d.patientcomplain, d.diagnosis, d.recommendation, d.drugallergies)">Edit</button></td>
+						        <td><button class="btn btn-md btn-primary" type="button" data-toggle="modal" data-target="#prescriptionmodal" ng-click="printprescriptionmodal(d.diagnoseid)">View</button></td>
+						      </tr>
+						    </tbody>
+						  </table>
+
+						  <!-- Modal -->
+							<div id="prescriptionmodal" class="modal fade" role="dialog">
+							  <div class="modal-dialog modal-lg">
+
+							    <!-- Modal content-->
+							    <div class="modal-content" style="overflow: hidden;"">
+							      <div class="modal-header">
+							        <button type="button" class="close" data-dismiss="modal">&times;</button>
+							        <h4 class="modal-title">Prescription <button class="btn btn-md btn-primary" id="buttonprint" type="button">Print</button></h4>
+							      </div>
+							      <div class="modal-body" id="contentprescription" style="color: black; overflow: hidden;">
+							        <div class="print">
+							        	 <div style="text-align: center;">
+							        	<!-- <div class="col-xs-4">
+							        	<img src="./images/logo.png" height="190" width="195">
+							        	</div> -->
+							        	<div >
+							        		<h2 style="padding-bottom: 0px; padding-top: 30px; padding-left: 8px;"><strong>TOMBOC SALAYOG HOSPITAL</strong></h2>
+											<h3 style="padding-top: 0px;">San Emmauel Tacurong City Sultan Kudarat 9800</h3>
+											<h2 style="padding-top: 0px;"><strong>CONTACT NO: 200-5760</strong></h2>
+							        	</div>
+									</div>
+									<br><br><br>
+										<div style=" text-align: center;">
+											<h3 style="overflow: hidden;">Name: {{printtprescriptionform.ufirst}} {{printtprescriptionform.umiddle}}  {{printtprescriptionform.ulast}}                                                Age: {{printtprescriptionform.age}}            Gender: {{printtprescriptionform.gender}} </h3>
+											<h3 style="overflow: hidden;">Address: {{printtprescriptionform.address}}  </h3>
+										</div>
+										<br><br>
+										<div style="padding-left: 140px;" class="row">
+											<div class="col-xs-2">
+												<img src="./images/rx.png" height="50" width="50"><br><br>
+											</div>
+											<div class="col-xs-7">
+												<h2 style="overflow: hidden;">{{printtprescriptionform.recommendation}}</h2>
+											</div>
+
+
+										</div>
+										<br><br>
+										<div>
+											<h2><strong class="pull-left">PHYSICIAN: {{printtprescriptionform.firstname}}  {{printtprescriptionform.middlename}}  {{printtprescriptionform.lastname}}  </strong><br><strong class="pull-left">LICENSE NO:</strong></h2>
+										</div>
+							        </div>
+
+							      </div>
+							    </div>
+
+							  </div>
+							</div>
+						  <!-- Modal -->
+							<div id="diagnoseeditmodal" class="modal fade" role="dialog">
+							  <div class="modal-dialog">
+
+							    <!-- Modal content-->
+							    <div class="modal-content">
+							      <div class="modal-body">
+							        <textarea class="form-control" ng-model="diagnoseeditform.description" placeholder="Description"></textarea><br>
+							        <textarea class="form-control" ng-model="diagnoseeditform.complaint" placeholder="Complaint"></textarea><br>
+							        <textarea class="form-control" ng-model="diagnoseeditform.diagnosis" placeholder="Diagnosis"></textarea><br>
+							        <textarea class="form-control" ng-model="diagnoseeditform.recommendation" placeholder="Prescription"></textarea><br>
+							        <textarea class="form-control" ng-model="diagnoseeditform.drugallergies" placeholder="Drug Allergies"></textarea><br>
+							        <button type="button" class="btn btn-primary btn-md center-block" ng-click="diagnoseeditsave()" style="width: 120px;">Save</button>
+							      </div>
+							      <div class="modal-footer">
+							        <button type="button" class="btn btn-default" ng-click="diagnoseeditclose()" data-dismiss="modal">Close</button>
+							      </div>
+							    </div>
+
+							  </div>
+							</div>
+					</div>
+					 <div id="vitalsign" class="tab-pane fade">
+					 	<h2 style="font-family: Monotype Corsiva;">Vital Sign</h2>
+					 	<br>
+					 	<div class="col-xs-4">
+						  	<h2 style="font-family: Monotype Corsiva; margin-right: 5px;">Filter</h2><input type="text" class="form-control center-block" ng-model="filtervitalsign"><ul uib-pagination total-items="vitalsignform.length" ng-model="currentPagevitalsign" ng-change="pageSizevitalsign"></ul>
+						  </div>
+					      <table class="table">
+						    <thead>
+						      <tr>
+						        <th>Patient</th>
+						        <th>BP</th>
+						        <th>Cardiac Rate</th>
+						        <th>Pulse Rate</th>
+						        <th>Temperature</th>
+						        <th>Respiratory Rate</th>
+						        <th>Oxygen Saturation</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr ng-repeat="p in vitalsignform | startFrom:(currentPagevitalsign - 1) * pageSizevitalsign | limitTo:pageSizevitalsign | filter: filtervitalsign">
+						        <td>{{p.firstname}} {{p.middlename}} {{p.lastname}}</td>
+						        <td>{{p.bp}}</td>
+						        <td>{{p.cardiacrate}}</td>
+						        <td>{{p.pulserate}}</td>
+						        <td>{{p.temperature}}</td>
+						        <td>{{p.respiratoryrate}}</td>
+						        <td>{{p.oxygensaturation}}</td>
+						      </tr>
+						  </table>
+					</div>
+					<br>
+					<br>
+
+					<h2 style="font-family: Monotype Corsiva;">Dashboard</h2>
+
+				</div>
+			</div>
+</div>
+</div>
+
+<!-- copyright -->
+<div class="copyright-agile">
+	<p>&copy; 2018 Tomboc-Salayog Hospital. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+</div>
+<!-- //copyright -->
+
+
+
+<script src="js/easy-responsive-tabs.js"></script>
+<script>
+$(document).ready(function () {
+$('#horizontalTab').easyResponsiveTabs({
+type: 'default', //Types: default, vertical, accordion
+width: 'auto', //auto or any width like 600px
+fit: true,   // 100% fit in a container
+closed: 'accordion', // Start closed if in accordion view
+activate: function(event) { // Callback function if tab is switched
+var $tab = $(this);
+var $info = $('#tabInfo');
+var $name = $('span', $info);
+$name.text($tab.text());
+$info.show();
+}
+});
+$('#verticalTab').easyResponsiveTabs({
+type: 'vertical',
+width: 'auto',
+fit: true
+});
+});
+</script>
+
+
+
+
+
+<!--banner Slider starts Here-->
+		<script src="js/responsiveslides.min.js"></script>
+							<script>
+								// You can also use "$(window).load(function() {"
+								$(function () {
+								  // Slideshow 4
+								  $("#slider3").responsiveSlides({
+									auto: true,
+									pager:true,
+									nav:false,
+									speed: 500,
+									namespace: "callbacks",
+									before: function () {
+									  $('.events').append("<li>before event fired.</li>");
+									},
+									after: function () {
+									  $('.events').append("<li>after event fired.</li>");
+									}
+								  });
+
+								});
+							 </script>
+
+							<!--banner Slider starts Here-->
+							<!--start-date-piker-->
+							<link rel="stylesheet" href="css/jquery-ui.css" />
+									<script src="js/jquery-ui.js"></script>
+									<script>
+										$(function() {
+										$( "#datepicker" ).datepicker();
+										});
+									</script>
+							<!--/End-date-piker-->
+
+<!-- js for smooth scrollings -->
+	<script src="js/SmoothScroll.min.js"></script>
+<!-- js for smooth scrollings -->
+
+<!-- flexisel -->
+	<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+	<script type="text/javascript">
+		$(window).load(function() {
+			$("#flexiselDemo1").flexisel({
+				visibleItems: 3,
+				animationSpeed: 1000,
+				autoPlay: false,
+				autoPlaySpeed: 3000,
+				pauseOnHover: true,
+				enableResponsiveBreakpoints: true,
+				responsiveBreakpoints: {
+					portrait: {
+						changePoint:480,
+						visibleItems: 1
+					},
+					landscape: {
+						changePoint:640,
+						visibleItems:2
+					},
+					tablet: {
+						changePoint:768,
+						visibleItems: 3
+					}
+				}
+			});
+
+		});
+	</script>
+<!-- //flexisel -->
+
+<!-- start-smooth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<!-- start-smooth-scrolling -->
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+				};
+			*/
+
+			$().UItoTop({ easingType: 'easeOutQuart' });
+
+			});
+	</script>
+<!-- //here ends scrolling icon -->
+
+
+<!-- Scrolling Nav JavaScript -->
+    <script src="js/scrolling-nav.js"></script>
+<!-- //fixed-scroll-nav-js -->
+
+
+</div>
+</div>

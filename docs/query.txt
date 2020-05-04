@@ -1,0 +1,1 @@
+mysqli_query($conn, "DELETE doctor, docsched, appointment, diagnose FROM doctor INNER JOIN docsched INNER JOIN appointment INNER JOIN diagnose WHERE doctor.`doctorid`=docsched.`doctorid` AND docsched.`schedid`=appointment.`schedid` AND appointment.`appointmentid`=diagnose.`diagnoseid` AND doctor.`doctorid`='TS-DOCTOR-105-01-18-2018'

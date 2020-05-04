@@ -1,0 +1,555 @@
+<div id="qweqweq">
+	<div>
+
+		<!-- banner -->
+	<div id="home" class="w3ls-banner"> 
+		<!-- header -->
+		<div class="header-w3layouts"> 
+			<!-- Navigation -->
+			<nav class="navbar navbar-default navbar-fixed-top"> 
+				<div class="container">
+					<div class="navbar-header page-scroll">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+							<span class="sr-only">Medical_care</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<h1><a class="navbar-brand" href="#!">Tomboc-Salayog Hospital</a></h1>
+					</div> 
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse navbar-ex1-collapse">
+						<ul class="nav navbar-nav navbar-right cl-effect-15">
+							<!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+							<li class="hidden"><a class="page-scroll" href="#page-top"></a>	</li>
+							<li><a class="page-scroll scroll" href="#!hospworkerhome" style="cursor: pointer;">Dashboard</a></li>
+							<li><a class="page-scroll scroll" href="#!print" style="cursor: pointer;">Print</a></li>
+							<li><a class="page-scroll scroll" data-toggle="modal" data-target="#registerModal" style="cursor: pointer;">Settings</a></li>
+							<li><a ng-click="logout()" style="cursor: pointer;">Log out</a></li>
+						</ul>
+					</div>
+					<!-- /.navbar-collapse -->
+				</div>
+				<!-- /.container -->
+			</nav>  
+		</div>	
+		<div class="loading">Loading&#8230;</div>
+
+		<div id="workerwallpaper" style="height: {{resizescreen}}">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+
+			<div class="container">
+				<div class="well" style="background-color: rgba(0, 0, 0, 0.6); color: white; overflow: hidden;">
+					<h1 style="font-family: Monotype Corsiva; color: white;">Workers Lounge</h1>
+					<br>
+					<div class="panel panel-default" style="background-color: rgba(0, 0, 0, 0.6); color: white; overflow: hidden; border-color: white;">
+						<div class="panel-body">
+							<h1 style="font-family: Monotype Corsiva; color: white;">Drug allergy</h1><br>
+							<button class="btn btn-md btn-info">View</button><br><br>
+							<input type="text" ng-model="filterDrugallergytable" class="form-control" style="width: 200px;" placeholder="Search"><br>
+							<ul uib-pagination total-items="userdrugalleryform.length" ng-model="currentPagedrugallergy" ng-change="pageSizedrugallergy" style="margin-left: 450px;"></ul>
+							<table class="table">
+							    <thead>
+							      <tr>
+							      	<th>ID</th>
+							        <th>Name</th>
+							        <th>Age</th>
+							        <th>Gender</th>
+							        <th>Addess</th>
+							        <th>Nationality</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							      <tr ng-repeat="q in userdrugalleryform | startFrom:(currentPagedrugallergy - 1) * pageSizedrugallergy | limitTo:pageSizedrugallergy | filter: filterDrugallergytable">
+							        <td>{{q.userid}}</td>
+							        <td>{{q.firstname}} {{q.middlename}} {{q.lastname}}</td>
+							        <td>{{q.age}}</td>
+							        <td>{{q.gender}}</td>
+							        <td>{{q.address}}</td>
+							        <td>{{q.nationality}}</td>
+							        <td><button class="btn btn-md btn-warning" data-toggle="modal" ng-click="allergymodal(q.userid)" data-target="#drugallergy">Allergy</button></td>
+							      </tr>
+							    </tbody>
+							  </table>
+
+								<!-- Modal -->
+								<div id="drugallergy" class="modal fade" role="dialog">
+								  <div class="modal-dialog">
+
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h4 class="modal-title">{{userid}}</h4>
+								      </div>
+								      <div class="modal-body" style="color: black;">
+								      	<button class="btn btn-primary btn-md" data-toggle="collapse" data-target="#addallergy">Add</button><br><br>
+										<div id="addallergy" class="collapse">
+											<input type="text" style="width: 200px;" ng-model="allergyform.drug" class="form-control" placeholder="Drug">
+											<br><button type="button" ng-click="saveallergy()" class="btn btn-primary btn-md">Save</button>
+										</div><br>
+								      	<ul uib-pagination total-items="userallergymodalform.length" ng-model="currentPagedrugallergymodal" ng-change="pageSizedrugallergymodal"></ul><br>
+								        <table class="table">
+										    <thead>
+										      <tr>
+										        <th>Patient</th>
+										        <th>Drug</th>
+										        <th>Date Created</th>
+										      </tr>
+										    </thead>
+										    <tbody>
+										      <tr ng-repeat="q in userallergymodalform | startFrom:(currentPagedrugallergymodal - 1) * pageSizedrugallergymodal | limitTo:pageSizedrugallergymodal">
+										        <td>{{q.firstname}} {{q.middlename}} {{q.lastname}}</td>
+										        <td>{{q.dname | capitalize}}</td>
+										        <td>{{q.date_created}}</td>
+										      </tr>
+										    </tbody>
+										  </table>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" ng-click="allergymodalclose()" data-dismiss="modal">Close</button>
+								      </div>
+								    </div>
+
+								  </div>
+								</div>
+						</div>
+					</div><br>
+					<h2 style="font-family: Monotype Corsiva; color: white;">Vital Sign Table</h2><br>
+					<input type="text" class="form-control" style="width: 400px;" ng-model="filtervitalsign" placeholder="Search">
+					<ul uib-pagination total-items="tableform.length" ng-model="currentPage" ng-change="pageSize" style="margin-left: 450px;"></ul>
+					  <table class="table" style="word-break: break-all;">
+					    <thead>
+					      <tr>
+					        <th>ID</th>
+					        <th>BP</th>
+					        <th>Cardiac rate</th>
+					        <th>Pulse rate</th>
+					        <th>Temperature</th>
+					        <th>Respiratory rate</th>
+					        <th>Oxygen Saturation</th>
+					        <th>Date Create</th>
+					        <th>Patient</th>
+					        <th>Worker</th>
+					      </tr>
+					    </thead>
+					    <tbody>
+					    	<tr ng-repeat="i in tableform | startFrom:(currentPage - 1) * pageSize | limitTo:pageSize | filter: filtervitalsign">
+					    		<td>{{i.vitalsignid}}</td>
+					    		<td>{{i.bp}}</td>
+					    		<td>{{i.cardiacrate}}</td>
+					    		<td>{{i.pulserate}}</td>
+					    		<td>{{i.temperature}}</td>
+					    		<td>{{i.respiratoryrate}}</td>
+					    		<td>{{i.oxygensaturation}}</td>
+					    		<td>{{i.date_created}}</td>
+					    		<td>{{i.firstname}} {{i.middlename}} {{i.lastname}}</td>
+					    		<td>{{i.workerid}}</td>
+					    		<td><button type="button" class="btn btn-success btn-md" ng-click="modalupdate(i.vitalsignid, i.temperature, i.cardiacrate, i.pulserate, i.bp, i.respiratoryrate, i.oxygensaturation)" data-toggle="modal" data-target="#updatemodal">Edit</button></td>
+					    		<td><button type="button" ng-click="vitalsigndelete(i.vitalsignid)" class="btn btn-danger btn-md">Delete</button></td>
+					    	</tr>
+					    	 <!-- Modal -->
+									<div id="updatemodal" class="modal fade" role="dialog">
+									  <div class="modal-dialog">
+
+									    <!-- Modal content-->
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <button type="button" class="close" ng-click="closeupdatemodal()" data-dismiss="modal">&times;</button>
+									        <h4 class="modal-title">Vital Signs</h4>
+									      </div>
+									      <div class="modal-body">
+									      		<input type="text" class="form-control" ng-model="updateform.temperature" placeholder="Temperature"><br>
+										        <input type="text" class="form-control" ng-model="updateform.cardiacrate" placeholder="Cardiac Rate"><br>
+										        <input type="text" class="form-control" ng-model="updateform.pulserate" placeholder="Pulse Rate"><br>
+										        <input type="text" class="form-control" ng-model="updateform.bloodpressure" placeholder="Blood Pressure"><br>
+										        <input type="text" class="form-control" ng-model="updateform.respiratoryrate" placeholder="Respiratory Rate"><br>
+										        <input type="text" class="form-control" ng-model="updateform.oxygen" placeholder="Oxygen Saturation"><br>
+										        <button type="button" ng-click="updatevitalsign()" class="btn btn-primary btn-md center-block">Save</button>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-default" ng-click="closeupdatemodal()" data-dismiss="modal">Close</button>
+									      </div>
+									    </div>
+
+									  </div>
+									</div>
+
+								  </div>
+								</div>
+					    </tbody>		
+					  </table>
+					  <br>
+					  <br>
+					  <br>
+					  <div class="medicine">
+					  	
+					  		<h1 style="font-family: Monotype Corsiva; color: white;">Medicine</h1><br>
+					  		<button class="btn btn-primary btn-md" style="width: 200px" data-toggle="modal" data-target="#addMedicine">Add</button><br><br>
+					  		<input type="text" class="form-control" ng-model="filterMed" placeholder="Search" style="width: 500px;"><br>
+					  		<ul uib-pagination total-items="medtableform.length" ng-model="currentPagemed" ng-change="pageSizemed" style="margin-left: 450px;"></ul><br>
+					  		  <table class="table" style="word-break: break-all;">
+							    <thead>
+							      <tr>
+							        <th>ID</th>
+							        <th>Medicine</th>
+							        <th>Dosage</th>
+							        <th>Category</th>
+							        <th>Usage</th>
+							      </tr>
+							    </thead>
+							    <tbody>
+							      <tr ng-repeat="q in medtableform | startFrom:(currentPagemed - 1) * pageSizemed | limitTo:pageSizemed | filter: filterMed">
+							        <td>{{q.medid}}</td>
+							        <td>{{q.medname}}</td>
+							        <td>{{q.dosage}}</td>
+							        <td>{{q.category}}</td>
+							        <td>{{q.meduse}}</td>
+							        <td><button class="btn btn-primary btn-md" ng-click="editmedmodal(q.medid, q.medname, q.dosage, q.category, q.meduse)" data-toggle="modal" data-target="#editMedicine" type="button">Edit</button></td>
+							        <td><button class="btn btn-danger btn-md" ng-click="deletemed(q.medid)" type="button">Delete</button></td>
+							      </tr>
+							    </tbody>
+							  </table>
+
+							  <!-- Modal -->
+								<div id="editMedicine" class="modal fade" role="dialog">
+								  <div class="modal-dialog modal-sm">
+
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h4 class="modal-title">Medicine</h4>
+								      </div>
+								      <div class="modal-body">
+								        <input type="text" class="form-control" ng-model="editmedform.name" placeholder="Medicine name"><br>
+								        <input type="text" class="form-control" ng-model="editmedform.dosage" placeholder="Dosage"><br>
+								        <input type="text" class="form-control" ng-model="editmedform.category" placeholder="Category"><br>
+								       	<textarea class="form-control" ng-model="editmedform.usage" placeholder="Usage"></textarea><br>
+								        <button class="btn btn-primary btn-md center-block" ng-click="saveeditmodal()" type="button">Save</button>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" ng-click="closeeditmedmodal()" data-dismiss="modal">Close</button>
+								      </div>
+								    </div>
+
+								  </div>
+								</div>
+
+							  <!-- Modal -->
+								<div id="addMedicine" class="modal fade" role="dialog">
+								  <div class="modal-dialog modal-sm">
+
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h4 class="modal-title">Medicine</h4>
+								      </div>
+								      <div class="modal-body">
+								        <input type="text" class="form-control" ng-model="medform.name" placeholder="Medicine name"><br>
+								        <input type="text" class="form-control" ng-model="medform.dosage" placeholder="Dosage"><br>
+								        <input type="text" class="form-control" ng-model="medform.category" placeholder="Category"><br>
+								       	<textarea class="form-control" ng-model="medform.usage" placeholder="Usage"></textarea><br>
+								        <button class="btn btn-primary btn-md center-block" ng-click="savemed()" type="button">Save</button>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" ng-click="medcancelmodal()" data-dismiss="modal">Close</button>
+								      </div>
+								    </div>
+
+								  </div>
+								</div>
+					  
+					  </div><br>
+					  <div class="vitalsign">
+					  		<div class="col-sm-offset-1">
+							  	<h2 style="font-family: Monotype Corsiva; color: white;">Vital Sign</h2><br>
+							  	<button class="btn btn-primary btn-md" type="button" ng-disabled="savebuttonenable" ng-click="vitalsignsave()" style="margin-right: 10px;">Save</button>
+							  	<button class="btn btn-primary btn-md" data-toggle="modal" data-target="#existingusermodal" style="margin-right: 10px;" type="button">Existing User</button>
+							  	<button class="btn btn-warning btn-md" data-toggle="modal" data-target="#walkinpatient" style="margin-right: 10px; type="button">Walk in patient</button><br><br>
+								  	<div class="panel panel-default col-md-3" style="float: left; margin-right: 20px;">
+									  <div class="panel-heading"><i class="fa fa-thermometer fa-2x" aria-hidden="true"font-family: Monotype Corsiva;> Temperature</i></div>
+									  <div class="panel-body">
+									  	<input type="text" ng-model="vitalsignform.temperature" class="form-control">
+									  </div>
+								    </div>
+								    <div class="panel panel-default col-md-3" style="float: left; margin-right: 20px;">
+									  <div class="panel-heading"><i class="fa fa-heart fa-2x" aria-hidden="true"font-family: Monotype Corsiva;> Cardiac Rate</i></div>
+									  <div class="panel-body">
+									  	<input type="text" ng-model="vitalsignform.cardiacrate" class="form-control">
+									  </div>
+								    </div>
+								    <div class="panel panel-default col-md-3" style="float: left; margin-right: 20px;">
+									  <div class="panel-heading"><i class="fa fa-heartbeat fa-2x" aria-hidden="true"font-family: Monotype Corsiva;> Pulse Rate</i></div>
+									  <div class="panel-body">
+									  	<input type="text" ng-model="vitalsignform.pulserate" class="form-control">
+									  </div>
+								    </div>
+								    <div class="panel panel-default col-md-3" style="float: left; margin-right: 20px;">
+									  <div class="panel-heading"><i class="fa fa-tint fa-2x" aria-hidden="true"font-family: Monotype Corsiva;> Blood Pressure</i></div>
+									  <div class="panel-body">
+									  	<input type="text" ng-model="vitalsignform.bloodpressure" class="form-control">
+									  </div>
+								    </div>
+								    <div class="panel panel-default col-md-3" style="float: left; margin-right: 20px;">
+									  <div class="panel-heading"><span class="medical-icon-respiratory" style="font-size: 25px;" aria-hidden="true"> Respiratory Rate</span></div>
+									  <div class="panel-body">
+									  	<input type="text" ng-model="vitalsignform.respiratoryrate" class="form-control">
+									  </div>
+								    </div>
+								    <div class="panel panel-default col-md-3" style="float: left; margin-right: 20px;">
+									  <div class="panel-heading"><span class="medical-icon-i-anesthesia" style="font-size: 25px;" aria-hidden="true"> Oxygen Saturation</span></div>
+									  <div class="panel-body">
+									  	<input type="text" ng-model="vitalsignform.oxygen" class="form-control">
+									  </div>
+								    </div>
+							  </div>
+
+								<!-- Modal -->
+								<div id="existingusermodal" class="modal fade" role="dialog">
+								  <div class="modal-dialog">
+
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" ng-click="closewalkinpatientmodal()" data-dismiss="modal">&times;</button>
+								        <h4 class="modal-title">Users</h4>
+								      </div>
+								      <div class="modal-body" style="color: black; word-break: break-all;">
+								          <table class="table" ng-show="showselected">
+										    <thead>
+										      <tr>
+										        <th>ID</th>
+										        <th>Firstname</th>
+										        <th>Middlename</th>
+										        <th>Lastname</th>
+										      </tr>
+										    </thead>
+										    <tbody>
+										      <tr ng-repeat="p in existinguserform | startFrom:(currentPageupdate - 1) * pageSizeupdate | limitTo:pageSizeupdate">
+										        <td>{{p.userid}}</td>
+										        <td>{{p.firstname}}</td>
+										        <td>{{p.middlename}}</td>
+										        <td>{{p.lastname}}</td>
+										        <td><button class="btn btn-primary btn-md" ng-click="selectuser(p.userid)" type="button">Select</button></td>
+										      </tr>
+										    </tbody>
+										  </table>
+										  <ul uib-pagination total-items="existinguserform.length" ng-show="showselected" ng-model="currentPageupdate" ng-change="pageSizeupdate"></ul><br>
+										  <strong ng-hide="showselected" class="alert {{alertmodal}}">Selected user: {{selecteduser}}</strong>
+										  <br>
+										  <br>
+										  <button ng-hide="showselected" data-dismiss="modal" ng-click="modalproceed()" class="btn btn-primary btn-md" type="button" style="margin-right: 20px;">Proceed</button>
+										  <button ng-hide="showselected" data-dismiss="modal" ng-click="modalcancel()" class="btn btn-primary btn-md" type="button">Cancel</button>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" ng-click="closewalkinpatientmodal()" data-dismiss="modal">Close</button>
+								      </div>
+								    </div>
+
+								  </div>
+								</div>
+							  <!-- Modal -->
+								<div id="walkinpatient" class="modal fade" role="dialog">
+								  <div class="modal-dialog">
+
+								    <!-- Modal content-->
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <button type="button" class="close" ng-click="closewalkinpatientmodal()" data-dismiss="modal">&times;</button>
+								        <h4 class="modal-title">Walk in patient</h4>
+								      </div>
+								      <div class="modal-body">
+								        <form method="POST" ng-submit="savewalkinpatient()">
+								        	<input type="text" ng-model="walkinpatientform.firstname" class="form-control" placeholder="Firstname"><br>
+								        	<input type="text" ng-model="walkinpatientform.middlename" class="form-control" placeholder="Middlename"><br>
+								        	<input type="text" ng-model="walkinpatientform.lastname" class="form-control" placeholder="Lastname"><br>
+								        	<input type="text" ng-model="walkinpatientform.age" class="form-control" onkeydown='return (event.which >= 48 && event.which <= 57) 
+   || event.which == 8 || event.which == 46' placeholder="Age"><br>
+								        	<select class="form-control" ng-model="walkinpatientform.gender">
+								        		<option>Male</option>
+								        		<option>Female</option>
+								        	</select><br>
+								        	<input type="text" ng-model="walkinpatientform.address" class="form-control" placeholder="Address"><br>
+								        	<input type="text" ng-model="walkinpatientform.nationality" class="form-control" placeholder="Nationality"><br>
+								        	<input type="text" ng-model="walkinpatientform.username" class="form-control" placeholder="Username"><br>
+								        	<input type="text" ng-model="walkinpatientform.password" class="form-control" placeholder="Password"><br>
+								        	<button type="button" ng-click="savewalkinpatient()" class="btn btn-primary btn-md center-block">Save</button>
+								        	<br>
+								        	<br>
+								        	<strong class="alert {{alertmessage}}">{{walkinpatientformmessage}}{{usernameexistid}}</strong><br><br><br>
+								        	<button class="btn btn-primary btn-md" ng-hide="proceed" data-dismiss="modal" style="margin-right: 20px;" ng-click="modalproceed()" type="text">Proceed</button><button class="btn btn-danger btn-md" ng-hide="canel" ng-click="modalcancel()" type="text">Cancel</button>
+								        </form>
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" ng-click="closewalkinpatientmodal()" data-dismiss="modal">Close</button>
+								      </div>
+								    </div>
+
+									<!-- Modal -->
+									<div id="updatemodal" class="modal fade" role="dialog">
+									  <div class="modal-dialog">
+
+									    <!-- Modal content-->
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <button type="button" class="close" data-dismiss="modal">&times;</button>
+									        <h4 class="modal-title">Modal Header</h4>
+									      </div>
+									      <div class="modal-body">
+									        <p>Some text in the modal.</p>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+									      </div>
+									    </div>
+
+									  </div>
+									</div>
+
+								  </div>
+								</div>
+					  </div>
+				</div>
+			</div>			
+		</div>
+
+
+<!-- copyright -->
+<div class="copyright-agile">
+	<p>&copy; 2018 Tomboc-Salayog Hospital. All rights reserved | Design by <a href="http://w3layouts.com">W3layouts</a></p>
+</div>
+<!-- //copyright -->
+
+
+
+<script src="js/easy-responsive-tabs.js"></script>
+<script>
+$(document).ready(function () {
+$('#horizontalTab').easyResponsiveTabs({
+type: 'default', //Types: default, vertical, accordion           
+width: 'auto', //auto or any width like 600px
+fit: true,   // 100% fit in a container
+closed: 'accordion', // Start closed if in accordion view
+activate: function(event) { // Callback function if tab is switched
+var $tab = $(this);
+var $info = $('#tabInfo');
+var $name = $('span', $info);
+$name.text($tab.text());
+$info.show();
+}
+});
+$('#verticalTab').easyResponsiveTabs({
+type: 'vertical',
+width: 'auto',
+fit: true
+});
+});
+</script>
+
+
+
+
+
+<!--banner Slider starts Here-->
+		<script src="js/responsiveslides.min.js"></script>
+							<script>
+								// You can also use "$(window).load(function() {"
+								$(function () {
+								  // Slideshow 4
+								  $("#slider3").responsiveSlides({
+									auto: true,
+									pager:true,
+									nav:false,
+									speed: 500,
+									namespace: "callbacks",
+									before: function () {
+									  $('.events').append("<li>before event fired.</li>");
+									},
+									after: function () {
+									  $('.events').append("<li>after event fired.</li>");
+									}
+								  });
+							
+								});
+							 </script>
+
+							<!--banner Slider starts Here-->
+							<!--start-date-piker-->
+							<link rel="stylesheet" href="css/jquery-ui.css" />
+									<script src="js/jquery-ui.js"></script>
+									<script>
+										$(function() {
+										$( "#datepicker" ).datepicker();
+										});
+									</script>
+							<!--/End-date-piker-->
+							
+<!-- js for smooth scrollings -->
+	<script src="js/SmoothScroll.min.js"></script>
+<!-- js for smooth scrollings -->
+
+<!-- flexisel -->
+	<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+	<script type="text/javascript">
+		$(window).load(function() {
+			$("#flexiselDemo1").flexisel({
+				visibleItems: 3,
+				animationSpeed: 1000,
+				autoPlay: false,
+				autoPlaySpeed: 3000,    		
+				pauseOnHover: true,
+				enableResponsiveBreakpoints: true,
+				responsiveBreakpoints: { 
+					portrait: { 
+						changePoint:480,
+						visibleItems: 1
+					}, 
+					landscape: { 
+						changePoint:640,
+						visibleItems:2
+					},
+					tablet: { 
+						changePoint:768,
+						visibleItems: 3
+					}
+				}
+			});
+			
+		});
+	</script>
+<!-- //flexisel -->
+
+<!-- start-smooth-scrolling -->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<!-- start-smooth-scrolling -->
+<!-- here stars scrolling icon -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			/*
+				var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear' 
+				};
+			*/
+								
+			$().UItoTop({ easingType: 'easeOutQuart' });
+								
+			});
+	</script>
+<!-- //here ends scrolling icon -->
+
+
+<!-- Scrolling Nav JavaScript --> 
+    <script src="js/scrolling-nav.js"></script>  
+<!-- //fixed-scroll-nav-js --> 
+
+
+</div>
+</div>

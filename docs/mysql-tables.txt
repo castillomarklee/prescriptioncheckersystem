@@ -1,0 +1,23 @@
+user
+
+CREATE TABLE `tombocsalayog`.`user` ( `userid` VARCHAR(200) NOT NULL , `firstname` VARCHAR(200) NOT NULL , `middlename` VARCHAR(200) NOT NULL , `lastname` VARCHAR(200) NOT NULL , `age` INT(200) NOT NULL , `gender` VARCHAR(200) NOT NULL , `nationality` VARCHAR(200) NOT NULL , `address` VARCHAR(200) NOT NULL , `username` VARCHAR(200) NOT NULL , `password` VARCHAR(200) NOT NULL , `date_created` VARCHAR(200) NOT NULL , PRIMARY KEY (`userid`)) ENGINE = InnoDB;
+
+appointment
+
+CREATE TABLE `tombocsalayog`.`appointment` ( `appointmentid` VARCHAR(200) NOT NULL , `appointmentdate` VARCHAR(200) NOT NULL , `appointmenttype` VARCHAR(200) NOT NULL , `appointmentdescription` VARCHAR(200) NOT NULL , `userid` VARCHAR(200) NOT NULL , `schedid` VARCHAR(200) NOT NULL , `date_created` VARCHAR(200) NOT NULL , PRIMARY KEY (`appointmentid`)) ENGINE = InnoDB;
+
+diagnosis
+
+CREATE TABLE `tombocsalayog`.`diagnose` ( `diagnoseid` VARCHAR(200) NOT NULL , `diagnosedescription` VARCHAR(200) NOT NULL , `patientcomplain` VARCHAR(200) NOT NULL , `diagnosis` VARCHAR(200) NOT NULL , `recommendation` VARCHAR(200) NOT NULL , `drugallergies` VARCHAR(200) NOT NULL , `appointmentid` VARCHAR(200) NOT NULL , PRIMARY KEY (`diagnoseid`)) ENGINE = InnoDB;
+
+doctor
+
+CREATE TABLE `tombocsalayog`.`doctor` ( `doctorid` VARCHAR(200) NOT NULL , `firstname` VARCHAR(200) NOT NULL , `middlename` VARCHAR(200) NOT NULL , `lastname` VARCHAR(200) NOT NULL , `age` INT(200) NOT NULL , `gender` VARCHAR(200) NOT NULL , `address` VARCHAR(200) NOT NULL , `doctortype` VARCHAR(200) NOT NULL , `username` VARCHAR(200) NOT NULL , `password` VARCHAR(200) NOT NULL , `date_createdd` VARCHAR(200) NOT NULL , PRIMARY KEY (`doctorid`)) ENGINE = InnoDB;
+
+vitalsigns
+
+CREATE TABLE `tombocsalayog`.`vitalsigns` ( `vitalsignid` VARCHAR(200) NOT NULL , `bp` VARCHAR(200) NOT NULL , `cardiacrate` VARCHAR(200) NOT NULL , `pulserate` VARCHAR(200) NOT NULL , `temperature` VARCHAR(200) NOT NULL , `respiratoryrate` VARCHAR(200) NOT NULL , `oxygensaturation` VARCHAR(200) NOT NULL , `patientcomplaint` VARCHAR(200) NOT NULL , `diagnosis` VARCHAR(200) NOT NULL , `recommendation` VARCHAR(200) NOT NULL , `drugallergies` VARCHAR(200) NOT NULL , `userid` VARCHAR(200) NOT NULL , `workerid` VARCHAR(200) NOT NULL , PRIMARY KEY (`vitalsignid`)) ENGINE = InnoDB;
+
+hospworker
+
+CREATE TABLE `tombocsalayog`.`hospworker` ( `workerid` VARCHAR NOT NULL , `firstname` VARCHAR NOT NULL , `midlename` VARCHAR NOT NULL , `lastname` VARCHAR NOT NULL , `age` INT NOT NULL , `gender` VARCHAR NOT NULL , `address` VARCHAR NOT NULL , `nationality` VARCHAR NOT NULL , `position` VARCHAR NOT NULL , `username` VARCHAR NOT NULL , `password` VARCHAR NOT NULL , PRIMARY KEY (`workerid`)) ENGINE = InnoDB;

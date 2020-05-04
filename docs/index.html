@@ -1,0 +1,90 @@
+<!--
+	Author: W3layouts
+	Author URL: http://w3layouts.com
+	License: Creative Commons Attribution 3.0 Unported
+	License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE html>
+<html lang="en">
+<!-- Head -->
+<head>
+<title>Prescription Checker System</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8">
+<meta name="keywords" content="Medical Care a Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template, 
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+
+	<!-- Bootstrap css -->
+	<link rel="stylesheet" type="text/css" href="./bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<script type="text/javascript" src="./bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="./js/alertify.min.js"></script>
+	<!-- <script type="text/javascript" src="./js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script> -->
+	<link rel="stylesheet" type="text/css" href="./bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="./webfont-medical-icons/css/wfmi-style.css">
+	<link rel="stylesheet" type="text/css" href="./bower_components/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap-timepicker/css/bootstrap-timepicker.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/bootstrap-timepicker/css/bootstrap-timepicker.css">
+	<link rel="stylesheet" type="text/css" href="./css/css/alertify.min.css">
+	<link rel="stylesheet" type="text/css" href="./css/css/themes/default.min.css">
+<!-- 	<link rel="stylesheet" type="text/css" href="./js/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+	<link rel="stylesheet" type="text/css" href="./js/jquery-ui-1.12.1.custom/jquery-ui.structure.min.css">
+	<link rel="stylesheet" type="text/css" href="./js/jquery-ui-1.12.1.custom/jquery-ui.theme.min"> -->
+	
+	<link rel="stylesheet" type="text/css" href="./css/custom.css">
+		<link rel="stylesheet" type="text/css" href="./bower_components/fakeLoader/fakeLoader.css">
+	<!-- flexslider-css-file -->
+<link rel="stylesheet" href="css/flexslider.css" type="text/css" media="screen" property="" />
+<!-- //flexslider-css-file -->
+
+<link rel="stylesheet" href="css/easy-responsive-tabs.css">
+
+<link href="css/style.css" type="text/css" rel="stylesheet" media="all">	<!-- style-css-file -->
+
+</head>
+<!-- Head -->
+
+<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top" ng-app="App" ng-controller="registercontroller">
+<div id="fakeLoader" style="position:fixed;"></div>
+
+		<div ui-view></div>
+
+	<!-- Library Scripts -->
+	<script type="text/javascript" src="./bower_components/angular/angular.min.js"></script>
+	<script type="text/javascript" src="./bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+	<script type="text/javascript" src="./bower_components/angular-datepicker/dist/angular-datepicker.min.js"></script>
+	<script type="text/javascript" src="./bower_components/angular-sessionstorage/angular-sessionstorage.js"></script>
+	<script type="text/javascript" src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="./bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="./bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" src="./css/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+	<script type="text/javascript" src="./css/bootstrap-timepicker/js/bootstrap-timepicker.min.js"></script>
+	<script type="text/javascript" src="./bower_components/fakeLoader/fakeLoader.min.js"></script>
+	<script type="text/javascript" src="./bower_components/file-saver/FileSaver.js"></script>
+	<script type="text/javascript" src="./js/jquery.wordexport.js"></script>
+
+
+
+	<!-- JS route -->
+	<script type="text/javascript" src="./js/route.js"></script>
+
+	<!-- login scripts -->
+
+	<script type="text/javascript">
+		var spinnernumber = Math.floor((Math.random() * 10) + 1);
+		var spnnerrandom = "spinner" + spinnernumber;
+		$(window).load(function() {
+			$("#fakeLoader").fakeLoader({
+
+				timeToHide:1200, //Time in milliseconds for fakeLoader disappear
+
+				zIndex:"5000",//Default zIndex
+
+				spinner:spnnerrandom,//Options: 'spinner1', 'spinner2', 'spinner3', 'spinner4', 'spinner5', 'spinner6', 'spinner7'
+
+				bgColor:"#2ee870" //Hex, RGB or RGBA colors
+
+			});
+		});
+	</script>
+</body>
+</html>
